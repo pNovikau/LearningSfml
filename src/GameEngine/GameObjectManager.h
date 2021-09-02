@@ -8,7 +8,7 @@ namespace engine
 	class GameObjectManager
 	{
 	public:
-		void add(GameObject& game_object);
+		void add(const std::shared_ptr<GameObject>& game_object);
 
 		void remove(const std::string& id);
 		void remove(const GameObject& game_object);

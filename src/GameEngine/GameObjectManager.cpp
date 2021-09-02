@@ -1,15 +1,13 @@
 #include "GameObjectManager.h"
 
+#include <ranges>
+#include "Utils/Helper.h"
+
 namespace engine
 {
-	void GameObjectManager::add(GameObject& game_object)
+	void GameObjectManager::add(const std::shared_ptr<GameObject>& game_object)
 	{
-		std::pair<std::string, std::shared_ptr<GameObject>> pair;
-
-		pair.first = game_object.get_id();
-		pair.second = std::make_shared<GameObject>(game_object);
-
-		object_map_.insert(pair);
+		object_map_.emplace(game_object->get_id(), game_object);
 	}
 
 	void GameObjectManager::remove(const std::string& id)
@@ -19,9 +17,7 @@ namespace engine
 
 	void GameObjectManager::remove(const GameObject& game_object)
 	{
-		const std::string id = game_object.get_id();
-
-		object_map_.erase(id);
+		object_map_.erase(game_object.get_id());
 	}
 
 	std::shared_ptr<GameObject> GameObjectManager::get(const std::string& id) const
@@ -33,7 +29,13 @@ namespace engine
 
 	std::vector<std::shared_ptr<GameObject>> GameObjectManager::list() const
 	{
-		//TODO:
-	}
+		std::vector<std::shared_ptr<GameObject>> objects;
 
+		for (const auto& value : object_map_ | std::views::values)
+		{
+			objects.push_back(value);
+		}
+
+		return objects;
+	}
 }

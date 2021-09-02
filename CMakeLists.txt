@@ -3,6 +3,9 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 project ("PingPong")
 
 # Include sub-projects.
@@ -18,4 +21,4 @@ set(SFML_STATIC_LIBRARIES TRUE)
 find_package(SFML 2.5.1 COMPONENTS graphics audio REQUIRED)
 
 add_subdirectory ("src/PingPong.Game")
-add_subdirectory("src/GameManager")
+add_subdirectory("src/GameEngine")

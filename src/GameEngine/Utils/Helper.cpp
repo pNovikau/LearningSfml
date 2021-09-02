@@ -3,7 +3,7 @@
 #include <random>
 
 
-namespace engine
+namespace engine::utils
 {
 	std::string Helper::generate_random_string()
 	{
@@ -19,4 +19,13 @@ namespace engine
 
 		return result;
 	}
+
+	//template <class TKey, class TValue>
+	//void Helper::map_to_vector(const std::map<TKey, TValue>& map, std::vector<TValue>& vector)
+	//{
+	//	for (const auto& pair : map)
+	//	{
+	//		vector.push_back(pair.second);
+	//	}
+	//}
 }
