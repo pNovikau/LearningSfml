@@ -20,14 +20,15 @@ namespace engine
 
 		for (const auto& game_obj : object_manager_->list())
 		{
-			game_obj->init();
+			game_obj->init(context);
 		}
 	}
 
 	void GameManager::start() const
 	{
-		auto context = std::make_unique<GameContext>();
+		const auto context = std::make_unique<GameContext>();
 		context->window = window_;
+		context->events = std::make_shared<std::vector<sf::Event>>();
 
 		while (window_->isOpen())
 		{
@@ -38,10 +39,7 @@ namespace engine
 				if (event.type == sf::Event::Closed)
 					window_->close();
 
-				for (const auto& game_obj : object_manager_->list())
-				{
-					game_obj->handle_event(event);
-				}
+				context->events->push_back(event);
 			}
 
 			window_->clear();
@@ -52,12 +50,7 @@ namespace engine
 			}
 
 			window_->display();
-			//sf::Event event;
-			//
-			//while (window_->pollEvent(event))
-			//{
-			//	handle_event(event);
-			//}
+			context->events->clear();
 		}
 	}
 
@@ -65,18 +58,5 @@ namespace engine
 	{
 		return object_manager_;
 	}
-
-
-	//void GameManager::handle_event(const sf::Event& event) const
-	//{
-	//	if (event.type == sf::Event::Closed)
-	//	{
-	//		WindowClosedEvent windowClosedEvent;
-	//
-	//		event_manager_->raise_event(windowClosedEvent);
-	//	}
-	//	else if (event.type == sf::Event::KeyPressed)
-	//	{}
-	//}
 
 }

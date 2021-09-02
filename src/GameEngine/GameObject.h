@@ -10,14 +10,12 @@ namespace engine
 		GameObject();
 		explicit GameObject(const std::string& id);
 
-		virtual void init() = 0;
+		virtual void init(const std::unique_ptr<GameContext>& context) = 0;
 
 		/// <summary>
 		/// Is called once per frame
 		/// </summary>
-		virtual void updated(std::unique_ptr<GameContext>& context) = 0;
-
-		virtual void handle_event(const sf::Event& event) = 0;
+		virtual void updated(const std::unique_ptr<GameContext>& context) = 0;
 
 		std::string get_id() const;
 
