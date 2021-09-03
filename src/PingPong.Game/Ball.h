@@ -11,8 +11,15 @@ namespace game
 
 		void init(const std::unique_ptr<engine::GameContext>& context) override;
 		void updated(const std::unique_ptr<engine::GameContext>& context) override;
+		void collision(const std::unique_ptr<engine::CollisionContext>& context) override;
 
 	private:
-		int angle;
+		const float radius_ = 10.0f;
+		const float speed_ = 0.13f;
+
+		std::unique_ptr<sf::Vector2f> direction_;
+
+		static int random_angle();
+		static void set_new_direction(std::unique_ptr<sf::Vector2f>& direction);
 	};
 }

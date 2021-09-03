@@ -14,7 +14,7 @@ add_library(game_engine STATIC
 			"GameObject.cpp" 
 			"Utils/Helper.cpp" 
 			"Utils/Helper.h" 
-			"GameContext.h")
+			"GameContext.h" "CollisionContext.h")
 
 target_include_directories(game_engine PUBLIC 
 	"${CMAKE_SOURCE_DIR}/src/GameEngine"

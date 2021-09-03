@@ -2,7 +2,6 @@
 //
 
 #include "GameManager.h"
-#include "Events.h"
 
 namespace engine
 {
@@ -28,29 +27,26 @@ namespace engine
 	{
 		const auto context = std::make_unique<GameContext>();
 		context->window = window_;
-		context->events = std::make_shared<std::vector<sf::Event>>();
 
 		while (window_->isOpen())
 		{
 			sf::Event event{};
 
-			while(window_->pollEvent(event))
+			while (window_->pollEvent(event))
 			{
 				if (event.type == sf::Event::Closed)
 					window_->close();
-
-				context->events->push_back(event);
 			}
 
 			window_->clear();
 
 			for (const auto& game_obj : object_manager_->list())
-			{
 				game_obj->updated(context);
-			}
+
+			for (const auto& game_obj : object_manager_->list())
+				game_obj->inspects_collision(object_manager_->list());
 
 			window_->display();
-			context->events->clear();
 		}
 	}
 

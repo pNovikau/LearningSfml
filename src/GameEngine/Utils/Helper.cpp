@@ -20,12 +20,4 @@ namespace engine::utils
 		return result;
 	}
 
-	//template <class TKey, class TValue>
-	//void Helper::map_to_vector(const std::map<TKey, TValue>& map, std::vector<TValue>& vector)
-	//{
-	//	for (const auto& pair : map)
-	//	{
-	//		vector.push_back(pair.second);
-	//	}
-	//}
 }
