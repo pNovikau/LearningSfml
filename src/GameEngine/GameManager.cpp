@@ -46,6 +46,12 @@ namespace engine
 			for (const auto& game_obj : object_manager_->list())
 				game_obj->inspects_collision(object_manager_->list());
 
+			for (const auto& game_obj : object_manager_->list())
+			{
+				game_obj->draw(context);
+				game_obj->draw_collision_box(context);
+			}
+
 			window_->display();
 		}
 	}

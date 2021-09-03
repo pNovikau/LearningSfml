@@ -7,6 +7,7 @@ namespace engine
 	GameObject::GameObject()
 	{
 		id_ = utils::Helper::generate_random_string();
+		tags_ = std::make_shared<std::set<std::string>>();
 	}
 
 	GameObject::GameObject(const std::string& id)
@@ -29,11 +30,16 @@ namespace engine
 		}
 	}
 
+	void GameObject::draw(const std::unique_ptr<GameContext>& context) const
+	{
+		context->window->draw(*shape_);
+	}
+
+
 	bool GameObject::contains(const std::shared_ptr<GameObject>& object) const
 	{
 		return get_bounding_box().intersects(object->get_bounding_box());
 	}
-
 
 	std::string GameObject::get_id() const
 	{
@@ -48,6 +54,16 @@ namespace engine
 	sf::FloatRect GameObject::get_bounding_box() const
 	{
 		return shape_->getGlobalBounds();
+	}
+
+	std::shared_ptr<std::set<std::string>> GameObject::get_tags() const
+	{
+		return tags_;
+	}
+
+	void GameObject::add_tag(const std::string tag) const
+	{
+		tags_->insert(tag);
 	}
 
 	void GameObject::draw_collision_box(const std::unique_ptr<GameContext>& context) const

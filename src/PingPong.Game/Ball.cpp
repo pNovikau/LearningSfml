@@ -13,16 +13,12 @@ namespace game
 		
 		shape_ = shape;
 
-		direction_ = std::make_unique<sf::Vector2f>(0, -1);
+		//direction_ = std::make_unique<sf::Vector2f>(0, -1);
 	}
 
 	void Ball::updated(const std::unique_ptr<engine::GameContext>& context)
 	{
-		shape_->move(direction_->x * speed_, direction_->y * speed_);
-
-		context->window->draw(*shape_);
-
-		draw_collision_box(context);
+		//shape_->move(direction_->x * speed_, direction_->y * speed_);
 	}
 
 	void Ball::collision(const std::unique_ptr<engine::CollisionContext>& context)
