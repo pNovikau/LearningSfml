@@ -1,11 +1,11 @@
 #pragma once
-#include "GameObject.h"
+#include "CollidingGameObject.h"
 
 namespace game
 {
-	class Wall : public engine::GameObject
+	class Wall : public engine::CollidingGameObject
 	{
-		using GameObject::GameObject;
+		using CollidingGameObject::CollidingGameObject;
 
 	public:
 

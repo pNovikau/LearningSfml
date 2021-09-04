@@ -8,7 +8,9 @@
 #include "Ball.h"
 #include "Player.h"
 #include "Wall.h"
-
+#include "PlayerTrigger.h"
+#include "EnemyTrigger.h"
+#include "Score.h"
 
 int main()
 {
@@ -30,17 +32,20 @@ int main()
 	const auto ball = std::make_shared<game::Ball>(game::Constants::Entities::BALL_ID);
 	game_manager.get_object_manager()->add(ball);
 
-	auto wall = create_wall({ 0, 0 }, { 1, 1200 });
+	auto wall = create_wall({ 0, 2 }, { 1, 1198 });
 	game_manager.get_object_manager()->add(std::make_shared<game::Wall>(wall));
 
-	wall = create_wall({ 1198, 0 }, { 1, 1200 });
+	wall = create_wall({ 1198, 2 }, { 1, 1198 });
 	game_manager.get_object_manager()->add(std::make_shared<game::Wall>(wall));
 
-	wall = create_wall({ 0, 0 }, { 1200, 1 });
-	game_manager.get_object_manager()->add(std::make_shared<game::Wall>(wall));
+	const auto player_trigger = std::make_shared<game::PlayerTrigger>();
+	game_manager.get_object_manager()->add(player_trigger);
 
-	wall = create_wall({ 0, 1198 }, { 1200, 1 });
-	game_manager.get_object_manager()->add(std::make_shared<game::Wall>(wall));
+	const auto enemy_trigger = std::make_shared<game::EnemyTrigger>();
+	game_manager.get_object_manager()->add(enemy_trigger);
+
+	const auto score = std::make_shared<game::Score>();
+	game_manager.get_object_manager()->add(score);
 
 	game_manager.init();
 	game_manager.start();

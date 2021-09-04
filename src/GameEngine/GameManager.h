@@ -2,7 +2,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "EventManager.h"
 #include "GameObjectManager.h"
 
 namespace engine
@@ -25,7 +24,6 @@ namespace engine
 
 	private:
 		std::shared_ptr<sf::RenderWindow> window_;
-		std::shared_ptr<EventManager> event_manager_;
 		std::shared_ptr<GameObjectManager> object_manager_;
 
 		//void handle_event(const sf::Event& event) const;

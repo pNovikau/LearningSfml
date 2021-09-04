@@ -10,6 +10,8 @@ namespace game
 		shape->setSize(size_);
 
 		shape_ = shape;
+		drawable_ = shape;
+		transformable_ = shape;
 	}
 
 	void Wall::updated(const std::unique_ptr<engine::GameContext>& context)

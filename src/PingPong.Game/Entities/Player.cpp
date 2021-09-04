@@ -13,6 +13,8 @@ namespace game
 		shape->setPosition(window_size.x / 2.0f, 5.0f);
 		
 		shape_ = shape;
+		drawable_ = shape;
+		transformable_ = shape;
 	}
 
 	void Player::updated(const std::unique_ptr<engine::GameContext>& context)

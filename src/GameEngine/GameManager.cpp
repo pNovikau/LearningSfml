@@ -2,13 +2,13 @@
 //
 
 #include "GameManager.h"
+#include "CollidingGameObject.h"
 
 namespace engine
 {
 	GameManager::GameManager(const unsigned int width, const unsigned int height, const std::string& title)
 	{
 		window_ = std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), title);
-		event_manager_ = std::make_shared<EventManager>();
 		object_manager_ = std::make_shared<GameObjectManager>();
 	}
 
@@ -44,12 +44,17 @@ namespace engine
 				game_obj->updated(context);
 
 			for (const auto& game_obj : object_manager_->list())
-				game_obj->inspects_collision(object_manager_->list());
+			{
+				if (game_obj->get_type() == colliding_game_object)
+					std::static_pointer_cast<CollidingGameObject>(game_obj)->inspects_collision(object_manager_->list());
+			}
 
 			for (const auto& game_obj : object_manager_->list())
 			{
 				game_obj->draw(context);
-				game_obj->draw_collision_box(context);
+
+				if (game_obj->get_type() == colliding_game_object)
+					std::static_pointer_cast<CollidingGameObject>(game_obj)->draw_collision_box(context);
 			}
 
 			window_->display();
