@@ -1,5 +1,7 @@
 #include "Score.h"
 
+#include <iostream>
+
 namespace game
 {
 	void Score::init(const std::unique_ptr<engine::GameContext>& context)
@@ -27,10 +29,20 @@ namespace game
 	void Score::increment_enemy_score()
 	{
 		++enemy_score_;
+
+		std::cout
+			<< "[" + get_id() + "] score updated "
+			<< std::to_string(player_score_) + " : " + std::to_string(enemy_score_)
+			<< "\n";
 	}
 
 	void Score::increment_player_score()
 	{
 		++player_score_;
+
+		std::cout
+			<< "[" + get_id() + "] score updated "
+			<< std::to_string(player_score_) + " : " + std::to_string(enemy_score_)
+			<< "\n";
 	}
 }

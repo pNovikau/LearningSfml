@@ -11,6 +11,7 @@
 #include "PlayerTrigger.h"
 #include "EnemyTrigger.h"
 #include "Score.h"
+#include "ScoreManager.h"
 
 int main()
 {
@@ -29,6 +30,9 @@ int main()
 	const auto player = std::make_shared<game::Player>(game::Constants::Entities::PLAYER_ID);
 	game_manager.get_object_manager()->add(player);
 
+	const auto score = std::make_shared<game::Score>();
+	game_manager.get_object_manager()->add(score);
+
 	const auto ball = std::make_shared<game::Ball>(game::Constants::Entities::BALL_ID);
 	game_manager.get_object_manager()->add(ball);
 
@@ -44,8 +48,9 @@ int main()
 	const auto enemy_trigger = std::make_shared<game::EnemyTrigger>();
 	game_manager.get_object_manager()->add(enemy_trigger);
 
-	const auto score = std::make_shared<game::Score>();
-	game_manager.get_object_manager()->add(score);
+	const auto score_manager = std::make_shared<game::ScoreManager>(score);
+	player_trigger->set_score_manager(score_manager);
+	enemy_trigger->set_score_manager(score_manager);
 
 	game_manager.init();
 	game_manager.start();

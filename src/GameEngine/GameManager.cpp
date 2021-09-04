@@ -40,12 +40,13 @@ namespace engine
 
 			window_->clear();
 
+			//TODO: optimize 3 loops below
 			for (const auto& game_obj : object_manager_->list())
 				game_obj->updated(context);
 
 			for (const auto& game_obj : object_manager_->list())
 			{
-				if (game_obj->get_type() == colliding_game_object)
+				if (game_obj->get_type() == GameObjectType::colliding_game_object)
 					std::static_pointer_cast<CollidingGameObject>(game_obj)->inspects_collision(object_manager_->list());
 			}
 
@@ -53,7 +54,7 @@ namespace engine
 			{
 				game_obj->draw(context);
 
-				if (game_obj->get_type() == colliding_game_object)
+				if (game_obj->get_type() == GameObjectType::colliding_game_object)
 					std::static_pointer_cast<CollidingGameObject>(game_obj)->draw_collision_box(context);
 			}
 

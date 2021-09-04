@@ -19,8 +19,7 @@ namespace engine
 	{
 		context->window->draw(*drawable_);
 	}
-
-#pragma region get/set
+	
 	GameObjectType GameObject::get_type() const
 	{
 		return GameObjectType::game_object;
@@ -46,5 +45,4 @@ namespace engine
 	{
 		tags_->insert(tag);
 	}
-#pragma endregion
 }

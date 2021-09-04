@@ -22,8 +22,6 @@ namespace game
 
 	void Ball::updated(const std::unique_ptr<engine::GameContext>& context)
 	{
-		const auto& shape_position = shape_->getPosition();
-
 		shape_->move(direction_->x * speed_, direction_->y * speed_);
 	}
 
@@ -39,6 +37,6 @@ namespace game
 		else if (context->game_object->get_id() == Constants::Entities::PLAYER_ID)
 			direction_->y *= -1;
 
-		std::cout << "collision";
+		std::cout << "[" + this->get_id() + "] collision with [" + context->game_object->get_id() + "] \n";
 	}
 }

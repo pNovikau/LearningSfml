@@ -2,7 +2,7 @@
 
 namespace engine
 {
-	enum GameObjectType
+	enum class GameObjectType
 	{
 		game_object,
 		colliding_game_object

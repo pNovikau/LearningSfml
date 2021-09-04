@@ -14,9 +14,8 @@ namespace engine
 	void CollidingGameObject::draw_collision_box(const std::unique_ptr<GameContext>& context) const
 	{
 		const auto bounding_box = get_bounding_box();
-
-		const sf::Vector2f rectangle_size(bounding_box.width, bounding_box.height);
-		auto collision_box = sf::RectangleShape(rectangle_size);
+		
+		auto collision_box = sf::RectangleShape({ bounding_box.width, bounding_box.height });
 		collision_box.setPosition(bounding_box.left, bounding_box.top);
 		collision_box.setOutlineColor(sf::Color::Red);
 		collision_box.setFillColor(sf::Color::Transparent);
@@ -34,7 +33,7 @@ namespace engine
 	{
 		for (auto& game_object : vector)
 		{
-			if (game_object->get_type() != colliding_game_object)
+			if (game_object->get_type() != GameObjectType::colliding_game_object)
 				continue;
 
 			auto colliding_game_object = std::static_pointer_cast<CollidingGameObject>(game_object);
@@ -51,7 +50,7 @@ namespace engine
 
 	GameObjectType CollidingGameObject::get_type() const
 	{
-		return colliding_game_object;
+		return GameObjectType::colliding_game_object;
 	}
 
 	sf::FloatRect CollidingGameObject::get_bounding_box() const
