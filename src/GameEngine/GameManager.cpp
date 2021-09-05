@@ -57,8 +57,10 @@ namespace engine
 			{
 				game_obj->draw(context);
 
+#ifndef NDEBUG
 				if (game_obj->get_type() == GameObjectType::colliding_game_object)
 					std::static_pointer_cast<CollidingGameObject>(game_obj)->draw_collision_box(context);
+#endif // !NDEBUG
 			}
 			fps.update();
 
