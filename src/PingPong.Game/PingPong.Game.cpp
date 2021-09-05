@@ -25,7 +25,7 @@ int main()
 		return wall;
 	};
 
-	const engine::GameManager game_manager(1200, 1200, "yey");
+	const engine::GameManager game_manager(1024, 768, "yey");
 	
 	const auto player = std::make_shared<game::Player>(game::Constants::Entities::PLAYER_ID);
 	game_manager.get_object_manager()->add(player);
@@ -36,10 +36,10 @@ int main()
 	const auto ball = std::make_shared<game::Ball>(game::Constants::Entities::BALL_ID);
 	game_manager.get_object_manager()->add(ball);
 
-	auto wall = create_wall({ 0, 2 }, { 1, 1198 });
+	auto wall = create_wall({ 2, 2 }, { 2, 600 });
 	game_manager.get_object_manager()->add(std::make_shared<game::Wall>(wall));
 
-	wall = create_wall({ 1198, 2 }, { 1, 1198 });
+	wall = create_wall({ 800, 2 }, { 2, 600 });
 	game_manager.get_object_manager()->add(std::make_shared<game::Wall>(wall));
 
 	const auto player_trigger = std::make_shared<game::PlayerTrigger>();
