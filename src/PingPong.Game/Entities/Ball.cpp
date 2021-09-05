@@ -17,7 +17,7 @@ namespace game
 		drawable_ = shape;
 		transformable_ = shape;
 
-		direction_ = std::make_unique<sf::Vector2f>(0.5, -0.2);
+		direction_ = std::make_unique<sf::Vector2f>(0.5f, -0.2f);
 	}
 
 	void Ball::updated(const std::unique_ptr<engine::GameContext>& context)
