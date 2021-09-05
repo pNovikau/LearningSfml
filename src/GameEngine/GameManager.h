@@ -20,11 +20,13 @@ namespace engine
 
 		void init() const;
 		void start() const;
+		std::string& getTitle() const;
 		std::shared_ptr<GameObjectManager> get_object_manager() const;
 
 	private:
 		std::shared_ptr<sf::RenderWindow> window_;
 		std::shared_ptr<GameObjectManager> object_manager_;
+		std::string title_;
 
 		//void handle_event(const sf::Event& event) const;
 	};
