@@ -29,7 +29,8 @@ namespace engine
 	{
 		const auto context = std::make_unique<GameContext>();
 		context->window = window_;
-		Utility::FPS fps;
+		context->time = std::make_shared<Time>();
+		Utility::FPS fps(context->time);
 
 		while (window_->isOpen())
 		{
@@ -42,6 +43,8 @@ namespace engine
 			}
 
 			window_->clear();
+
+			context->time->update();
 
 			//TODO: optimize 3 loops below
 			for (const auto& game_obj : object_manager_->list())
@@ -62,10 +65,8 @@ namespace engine
 					std::static_pointer_cast<CollidingGameObject>(game_obj)->draw_collision_box(context);
 #endif // !NDEBUG
 			}
-			fps.update();
 
 			std::uint8_t frames = fps.getFPS();
-			context->dt = 1.f / frames;
 			window_->setTitle(title_ + " FPS: " + std::to_string(frames));
 
 			window_->display();

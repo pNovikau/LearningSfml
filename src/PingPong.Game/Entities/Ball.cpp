@@ -21,7 +21,7 @@ namespace game
 
 	void Ball::updated(const std::unique_ptr<engine::GameContext>& context)
 	{
-		shape_->move(velocity_ * speed_ * context->dt);
+		shape_->move(velocity_ * speed_ * context->time->get_delta().asSeconds());
 	}
 
 	void Ball::draw(const std::unique_ptr<engine::GameContext>& context) const

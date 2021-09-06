@@ -10,30 +10,18 @@ namespace Utility
     class FPS
     {
     public:
-        FPS() = default;
-
-        /// @brief Update frame count
-        void update()
+        FPS(std::shared_ptr<engine::Time> time)
         {
-            if (_clock.getElapsedTime().asSeconds() >= 1.0f)
-            {
-                _fps = _frame;
-                _frame = 1;
-                _clock.restart();
-            }
-
-            ++_frame;
+            _time = std::move(time);
         }
 
         /// @brief Get  current FPS count.
         const std::uint8_t getFPS() const
         {
-            return _fps;
+            return 1.f / _time->get_delta().asSeconds();
         }
 
     private:
-        std::uint8_t _frame{1};
-        std::uint8_t _fps{1};
-        sf::Clock _clock;
+        std::shared_ptr<engine::Time> _time;
     };
 } //namespace Utility
