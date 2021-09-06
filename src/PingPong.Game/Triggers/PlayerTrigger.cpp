@@ -19,7 +19,8 @@ namespace game
 		if (context->game_object->get_id() != Constants::Entities::BALL_ID)
 			return;
 
-		score_manager_->increment_player_score();
+		if (score_manager_)
+			score_manager_->increment_player_score();
 	}
 
 	void PlayerTrigger::updated(const std::unique_ptr<engine::GameContext>& context)

@@ -3,6 +3,7 @@
 
 #include "CollidingGameObject.h"
 #include "ScoreManager.h"
+#include "Utils/VectorMath.h"
 
 namespace game
 {
@@ -17,10 +18,12 @@ namespace game
 		void collision(const std::unique_ptr<engine::CollisionContext>& context) override;
 		void draw(const std::unique_ptr<engine::GameContext>& context) const override;
 
+
 	private:
 		const float radius_ = 10.0f;
-		const float speed_ = 0.23f;
-		
-		std::unique_ptr<sf::Vector2f> direction_;
+		sf::Vector2f velocity_ = Utility::normalise({ -0.5f, 0.1f });
+		const float speed_ = 100.f;
+
+		void resolve(const sf::Vector3f& manifold);
 	};
 }

@@ -3,12 +3,14 @@
 
 #include "GameManager.h"
 #include "CollidingGameObject.h"
+#include "FPS.h"
 
 namespace engine
 {
 	GameManager::GameManager(const unsigned int width, const unsigned int height, const std::string& title)
+		: title_(title)
 	{
-		window_ = std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), title);
+		window_ = std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), title_);
 		object_manager_ = std::make_shared<GameObjectManager>();
 	}
 
@@ -27,6 +29,9 @@ namespace engine
 	{
 		const auto context = std::make_unique<GameContext>();
 		context->window = window_;
+		context->time = std::make_shared<GameTime>();
+
+		Utility::FPS fps(context->time);
 
 		while (window_->isOpen())
 		{
@@ -39,6 +44,8 @@ namespace engine
 			}
 
 			window_->clear();
+
+			context->time->update();
 
 			//TODO: optimize 3 loops below
 			for (const auto& game_obj : object_manager_->list())
@@ -54,9 +61,14 @@ namespace engine
 			{
 				game_obj->draw(context);
 
+#ifndef NDEBUG
 				if (game_obj->get_type() == GameObjectType::colliding_game_object)
 					std::static_pointer_cast<CollidingGameObject>(game_obj)->draw_collision_box(context);
+#endif // !NDEBUG
 			}
+
+			std::uint8_t frames = fps.getFPS();
+			window_->setTitle(title_ + " FPS: " + std::to_string(frames));
 
 			window_->display();
 		}
