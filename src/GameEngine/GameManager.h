@@ -27,8 +27,6 @@ namespace engine
 		std::shared_ptr<sf::RenderWindow> window_;
 		std::shared_ptr<GameObjectManager> object_manager_;
 		std::string title_;
-
-		//void handle_event(const sf::Event& event) const;
 	};
 
 	class Constants

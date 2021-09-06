@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdlib>
+#include "GameTime.h"
 
 #include <SFML/System/Clock.hpp>
 
@@ -10,30 +11,31 @@ namespace Utility
     class FPS
     {
     public:
-        FPS() = default;
+        FPS(std::shared_ptr<engine::GameTime> time)
+        {
+            _time = std::move(time);
+        }
 
-        /// @brief Update frame count
-        void update()
+        /// @brief Get current FPS count.
+        const std::uint8_t getFPS()
         {
             if (_clock.getElapsedTime().asSeconds() >= 1.0f)
             {
-                _fps = _frame;
-                _frame = 1;
+                auto total_frames = _time->get_total_frames();
+                
+                _fps = _last_total_frames - total_frames;
+                _last_total_frames = total_frames;
+
                 _clock.restart();
             }
 
-            ++_frame;
-        }
-
-        /// @brief Get  current FPS count.
-        const std::uint8_t getFPS() const
-        {
             return _fps;
         }
 
     private:
-        std::uint8_t _frame{1};
-        std::uint8_t _fps{1};
+        std::shared_ptr<engine::GameTime> _time;
+        int _last_total_frames;
+        std::uint8_t _fps;
         sf::Clock _clock;
     };
 } //namespace Utility

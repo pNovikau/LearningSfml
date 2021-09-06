@@ -22,7 +22,7 @@ namespace game
 	private:
 		const float radius_ = 10.0f;
 		sf::Vector2f velocity_ = Utility::normalise({ -0.5f, 0.1f });
-		const float speed_ = 1.f;
+		const float speed_ = 100.f;
 
 		void resolve(const sf::Vector3f& manifold);
 	};
