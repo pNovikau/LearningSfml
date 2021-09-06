@@ -1,14 +1,14 @@
 #pragma once
 
 #include <SFML/System/Clock.hpp>
-#include <time.h>
+#include <Time.h>
 
 namespace engine
 {
-    class Time
+    class GameTime
     {
     public:
-        Time() = default;
+        GameTime() = default;
 
         void update()
         {

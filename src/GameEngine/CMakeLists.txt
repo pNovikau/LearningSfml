@@ -16,7 +16,7 @@ add_library(game_engine STATIC
 			"Utils/Helper.cpp"
 			"Utils/Helper.h"
 			"Utils/VectorMath.h"
-			"Time.h" )
+			"GameTime.h" )
 
 target_include_directories(game_engine PUBLIC 
     "${CMAKE_SOURCE_DIR}/src/GameEngine"

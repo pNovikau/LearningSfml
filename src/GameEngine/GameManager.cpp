@@ -29,7 +29,8 @@ namespace engine
 	{
 		const auto context = std::make_unique<GameContext>();
 		context->window = window_;
-		context->time = std::make_shared<Time>();
+		context->time = std::make_shared<GameTime>();
+
 		Utility::FPS fps(context->time);
 
 		while (window_->isOpen())

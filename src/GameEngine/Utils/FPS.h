@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdlib>
+#include "GameTime.h"
 
 #include <SFML/System/Clock.hpp>
 
@@ -10,7 +11,7 @@ namespace Utility
     class FPS
     {
     public:
-        FPS(std::shared_ptr<engine::Time> time)
+        FPS(std::shared_ptr<engine::GameTime> time)
         {
             _time = std::move(time);
         }
@@ -22,6 +23,6 @@ namespace Utility
         }
 
     private:
-        std::shared_ptr<engine::Time> _time;
+        std::shared_ptr<engine::GameTime> _time;
     };
 } //namespace Utility
