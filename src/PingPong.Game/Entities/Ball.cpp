@@ -12,17 +12,16 @@ namespace game
 		const auto shape = std::make_shared<sf::CircleShape>(radius_);
 		shape->setFillColor(sf::Color::White);
 		shape->setPosition(shape_position);
+		shape->setOrigin(10.f, 10.f);
 		
 		shape_ = shape;
 		drawable_ = shape;
 		transformable_ = shape;
-
-		direction_ = std::make_unique<sf::Vector2f>(0.5f, -0.2f);
 	}
 
 	void Ball::updated(const std::unique_ptr<engine::GameContext>& context)
 	{
-		shape_->move(direction_->x * speed_, direction_->y * speed_);
+		shape_->move(velocity_ * speed_ * context->dt);
 	}
 
 	void Ball::draw(const std::unique_ptr<engine::GameContext>& context) const
@@ -33,10 +32,20 @@ namespace game
 	void Ball::collision(const std::unique_ptr<engine::CollisionContext>& context)
 	{
 		if (context->game_object->get_tags()->contains(Constants::Tags::WALL))
-			direction_->x *= -1;
-		else if (context->game_object->get_id() == Constants::Entities::PLAYER_ID)
-			direction_->y *= -1;
+		{
+			auto collisionNormal = context->game_object->get_position() - transformable_->getPosition();
+			auto manifold = Utility::getManifold(context->overlap, collisionNormal);
+			resolve(manifold);
+		}
 
 		std::cout << "[" + this->get_id() + "] collision with [" + context->game_object->get_id() + "] \n";
+	}
+
+	void Ball::resolve(const sf::Vector3f& manifold)
+	{
+		sf::Vector2f normal(manifold.x, manifold.y);
+		shape_->move(normal * manifold.z);
+
+		velocity_ = Utility::reflect(velocity_, normal);
 	}
 }

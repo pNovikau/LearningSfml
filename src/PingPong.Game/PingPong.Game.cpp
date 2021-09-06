@@ -18,14 +18,15 @@ int main()
 	auto create_wall = [](const sf::Vector2f position, const sf::Vector2f size)
 	{
 		game::Wall wall;
-		wall.set_size(size);
+		wall.set_origin(size / 2.f);
 		wall.set_position(position);
+		wall.set_size(size);
 		wall.add_tag(game::Constants::Tags::WALL);
 
 		return wall;
 	};
 
-	const engine::GameManager game_manager(1024, 768, "yey");
+	const engine::GameManager game_manager(768, 1024, "yey");
 	
 	const auto player = std::make_shared<game::Player>(game::Constants::Entities::PLAYER_ID);
 	game_manager.get_object_manager()->add(player);
@@ -36,10 +37,12 @@ int main()
 	const auto ball = std::make_shared<game::Ball>(game::Constants::Entities::BALL_ID);
 	game_manager.get_object_manager()->add(ball);
 
-	auto wall = create_wall({ 2, 2 }, { 2, 600 });
+	//left
+	auto wall = create_wall({ 20.f, 400.f }, { 20.f, 760.f } );
 	game_manager.get_object_manager()->add(std::make_shared<game::Wall>(wall));
 
-	wall = create_wall({ 800, 2 }, { 2, 600 });
+	//right
+	wall = create_wall({ 590.f, 400.f }, { 20.f, 760.f });
 	game_manager.get_object_manager()->add(std::make_shared<game::Wall>(wall));
 
 	const auto player_trigger = std::make_shared<game::PlayerTrigger>();

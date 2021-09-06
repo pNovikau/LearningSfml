@@ -18,7 +18,7 @@ namespace Utility
             if (_clock.getElapsedTime().asSeconds() >= 1.0f)
             {
                 _fps = _frame;
-                _frame = 0;
+                _frame = 1;
                 _clock.restart();
             }
 
@@ -32,8 +32,8 @@ namespace Utility
         }
 
     private:
-        std::uint8_t _frame{0};
-        std::uint8_t _fps{0};
+        std::uint8_t _frame{1};
+        std::uint8_t _fps{1};
         sf::Clock _clock;
     };
 } //namespace Utility

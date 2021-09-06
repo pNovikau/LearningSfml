@@ -8,5 +8,6 @@ namespace engine
 	struct GameContext
 	{
 		std::shared_ptr<sf::RenderWindow> window;
+		float dt = 0;
 	};
 }

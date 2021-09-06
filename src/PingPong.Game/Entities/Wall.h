@@ -15,9 +15,11 @@ namespace game
 
 		void set_size(const sf::Vector2f& size);
 		void set_position(const sf::Vector2f& position);
+		void set_origin(const sf::Vector2f& origin);
 
 	private:
 		sf::Vector2f size_;
 		sf::Vector2f position_;
+		sf::Vector2f origin_;
 	};
 }

@@ -15,6 +15,7 @@ add_library(game_engine STATIC
 			"Utils/FPS.h"
 			"Utils/Helper.cpp"
 			"Utils/Helper.h"
+			"Utils/VectorMath.h"
 			)
 
 target_include_directories(game_engine PUBLIC 

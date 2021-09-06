@@ -11,9 +11,9 @@ namespace engine
 	void CollidingGameObject::updated(const std::unique_ptr<GameContext>& context)
 	{ }
 
-	bool CollidingGameObject::contains(const std::shared_ptr<CollidingGameObject>& object) const
+	bool CollidingGameObject::contains(const std::shared_ptr<CollidingGameObject>& object, sf::FloatRect& overlap) const
 	{
-		return get_bounding_box().intersects(object->get_bounding_box());
+		return get_bounding_box().intersects(object->get_bounding_box(), overlap);
 	}
 
 	void CollidingGameObject::inspects_collision(const std::vector<std::shared_ptr<GameObject>>& vector)
@@ -24,11 +24,13 @@ namespace engine
 				continue;
 
 			auto colliding_game_object = std::static_pointer_cast<CollidingGameObject>(game_object);
+			sf::FloatRect overlap;
 
-			if (game_object->get_id() != this->get_id() && contains(colliding_game_object))
+			if (game_object->get_id() != this->get_id() && contains(colliding_game_object, overlap))
 			{
 				CollisionContext context;
 				context.game_object = game_object;
+				context.overlap = std::move(overlap);
 
 				collision(std::make_unique<CollisionContext>(context));
 			}

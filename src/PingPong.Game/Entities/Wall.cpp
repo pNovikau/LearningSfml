@@ -6,8 +6,9 @@ namespace game
 	{
 		const auto shape = std::make_shared<sf::RectangleShape>(size_);
 		shape->setFillColor(sf::Color::Transparent);
-		shape->setPosition(position_);
 		shape->setSize(size_);
+		shape->setOrigin(origin_);
+		shape->setPosition(position_);
 
 		shape_ = shape;
 		drawable_ = shape;
@@ -29,5 +30,9 @@ namespace game
 	void Wall::set_position(const sf::Vector2f& position)
 	{
 		position_ = position;
+	}
+	void Wall::set_origin(const sf::Vector2f& origin)
+	{
+		origin_ = origin;
 	}
 }

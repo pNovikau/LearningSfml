@@ -64,8 +64,9 @@ namespace engine
 			}
 			fps.update();
 
-			auto fpsStr = std::to_string(fps.getFPS());
-			window_->setTitle(title_ + " FPS: " + fpsStr);
+			std::uint8_t frames = fps.getFPS();
+			context->dt = 1.f / frames;
+			window_->setTitle(title_ + " FPS: " + std::to_string(frames));
 
 			window_->display();
 		}
