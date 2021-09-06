@@ -16,6 +16,11 @@ namespace engine
             delta_time_ = delta_clock_.restart();
         }
 
+        const int get_total_frames() const
+        {
+            return total_frames_;
+        }
+
         const sf::Time get_time() const
         {
             return clock_.getElapsedTime();
@@ -27,8 +32,8 @@ namespace engine
         }
 
     private:
-        sf::Clock clock_;
         int total_frames_;
+        sf::Clock clock_;
         sf::Clock delta_clock_;
         sf::Time delta_time_;
     };
