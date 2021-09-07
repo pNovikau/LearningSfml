@@ -35,12 +35,12 @@ namespace game
 	void Player::collision(const std::unique_ptr<engine::CollisionContext>& context)
 	{
 		const auto& game_object = context->game_object;
-		const bool is_wall = game_object->get_tags()->contains(Constants::Tags::WALL);
+		const bool is_wall = game_object->getTags()->contains(Constants::Tags::WALL);
 
 		if (!is_wall)
 			return;
 
-		if (game_object->get_position().x == 0)
+		if (game_object->getPosition().x == 0)
 			can_move_left_ = false;
 		else
 			can_move_right_ = false;

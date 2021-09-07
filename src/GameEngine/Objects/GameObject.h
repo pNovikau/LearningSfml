@@ -18,21 +18,21 @@ namespace engine
 		virtual void updated(const std::unique_ptr<GameContext>& context) = 0;
 
 		virtual void draw(const std::unique_ptr<GameContext>& context) const;
-		virtual GameObjectType get_type() const;
+		virtual GameObjectType getType() const;
 
-		std::string get_id() const;
-		const sf::Vector2f& get_position() const;
-		std::shared_ptr<std::set<std::string>> get_tags() const;
+		std::string getId() const;
+		const sf::Vector2f& getPosition() const;
+		std::shared_ptr<std::set<std::string>> getTags() const;
 
-		void add_tag(const std::string tag) const;
+		void addTag(const std::string tag) const;
 
 	protected:
-		std::string id_;
+		std::string _id;
 		
-		std::shared_ptr<sf::Drawable> drawable_;
-		std::shared_ptr<sf::Transformable> transformable_;
+		std::shared_ptr<sf::Drawable> _drawable;
+		std::shared_ptr<sf::Transformable> _transformable;
 
 	private:
-		std::shared_ptr<std::set<std::string>> tags_;
+		std::shared_ptr<std::set<std::string>> _tags;
 	};
 }

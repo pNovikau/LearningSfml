@@ -1,6 +1,6 @@
 #pragma once
 #include "GameContext.h"
-#include "GameObject.h"
+#include "Objects/GameObject.h"
 
 namespace game
 {

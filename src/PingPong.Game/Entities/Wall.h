@@ -1,5 +1,5 @@
 #pragma once
-#include "CollidingGameObject.h"
+#include "Objects/CollidingGameObject.h"
 
 namespace game
 {

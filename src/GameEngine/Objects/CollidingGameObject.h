@@ -15,7 +15,7 @@ namespace engine
 		virtual void collision(const std::unique_ptr<CollisionContext>& context) = 0;
 		virtual bool contains(const std::shared_ptr<CollidingGameObject>& object, sf::FloatRect& overlap) const;
 		virtual void inspects_collision(const std::vector<std::shared_ptr<GameObject>>& vector);
-		GameObjectType get_type() const override;
+		GameObjectType getType() const override;
 		sf::FloatRect get_bounding_box() const;
 
 #ifndef NDEBUG

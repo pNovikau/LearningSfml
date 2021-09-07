@@ -6,7 +6,7 @@ namespace engine
 {
 	void GameObjectManager::add(const std::shared_ptr<GameObject>& game_object)
 	{
-		object_map_.emplace(game_object->get_id(), game_object);
+		object_map_.emplace(game_object->getId(), game_object);
 	}
 
 	void GameObjectManager::remove(const std::string& id)
@@ -16,7 +16,7 @@ namespace engine
 
 	void GameObjectManager::remove(const GameObject& game_object)
 	{
-		object_map_.erase(game_object.get_id());
+		object_map_.erase(game_object.getId());
 	}
 
 	std::shared_ptr<GameObject> GameObjectManager::get(const std::string& id) const

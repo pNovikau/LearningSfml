@@ -20,13 +20,13 @@ namespace engine
 	{
 		for (auto& game_object : vector)
 		{
-			if (game_object->get_type() != GameObjectType::colliding_game_object)
+			if (game_object->getType() != GameObjectType::colliding_game_object)
 				continue;
 
 			auto colliding_game_object = std::static_pointer_cast<CollidingGameObject>(game_object);
 			sf::FloatRect overlap;
 
-			if (game_object->get_id() != this->get_id() && contains(colliding_game_object, overlap))
+			if (game_object->getId() != this->getId() && contains(colliding_game_object, overlap))
 			{
 				CollisionContext context;
 				context.game_object = game_object;
@@ -37,7 +37,7 @@ namespace engine
 		}
 	}
 
-	GameObjectType CollidingGameObject::get_type() const
+	GameObjectType CollidingGameObject::getType() const
 	{
 		return GameObjectType::colliding_game_object;
 	}
