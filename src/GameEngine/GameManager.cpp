@@ -1,8 +1,9 @@
 ﻿// GameManager.cpp : Source file for your target.
 //
 
+#include <DrawableObject.h>
 #include "GameManager.h"
-#include "CollidingGameObject.h"
+#include "Objects/CollidingObject.h"
 #include "FPS.h"
 
 namespace engine
@@ -53,17 +54,18 @@ namespace engine
 
 			for (const auto& game_obj : object_manager_->list())
 			{
-				if (game_obj->get_type() == GameObjectType::colliding_game_object)
-					std::static_pointer_cast<CollidingGameObject>(game_obj)->inspects_collision(object_manager_->list());
+				if (game_obj->isType(GameObjectType::collidingObject))
+                    std::static_pointer_cast<CollidingObject>(game_obj)->inspectsCollision(object_manager_->list());
 			}
 
 			for (const auto& game_obj : object_manager_->list())
 			{
-				game_obj->draw(context);
+                if (game_obj->isType(GameObjectType::drawableObject))
+                    std::static_pointer_cast<DrawableObject>(game_obj)->draw(context);
 
 #ifndef NDEBUG
-				if (game_obj->get_type() == GameObjectType::colliding_game_object)
-					std::static_pointer_cast<CollidingGameObject>(game_obj)->draw_collision_box(context);
+				if (game_obj->isType(GameObjectType::collidingObject))
+                    std::static_pointer_cast<CollidingObject>(game_obj)->drawCollisionBox(context);
 #endif // !NDEBUG
 			}
 

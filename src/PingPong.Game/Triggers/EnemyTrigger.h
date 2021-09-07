@@ -1,14 +1,14 @@
 #pragma once
-#include "CollidingGameObject.h"
+#include "Objects/CollidingObject.h"
 #include "CollisionContext.h"
 #include "GameContext.h"
 #include "ScoreManager.h"
 
 namespace game
 {
-	class EnemyTrigger : public engine::CollidingGameObject
+	class EnemyTrigger : public engine::CollidingObject
 	{
-		using CollidingGameObject::CollidingGameObject;
+		using CollidingObject::CollidingObject;
 
 	public:
 		void init(const std::unique_ptr<engine::GameContext>& context) override;

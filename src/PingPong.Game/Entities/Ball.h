@@ -1,23 +1,25 @@
 #pragma once
 #include <random>
 
-#include "CollidingGameObject.h"
+#include "Objects/TransformableObject.h"
+#include "Objects/CollidingObject.h"
+#include "Objects/DrawableObject.h"
 #include "ScoreManager.h"
 #include "Utils/VectorMath.h"
 
 namespace game
 {
-	class Ball : public engine::CollidingGameObject
+	class Ball :
+            public engine::CollidingObject,
+            public engine::DrawableObject
 	{
-		using CollidingGameObject::CollidingGameObject;
+		using CollidingObject::CollidingObject;
 
 	public:
 		
 		void init(const std::unique_ptr<engine::GameContext>& context) override;
 		void updated(const std::unique_ptr<engine::GameContext>& context) override;
 		void collision(const std::unique_ptr<engine::CollisionContext>& context) override;
-		void draw(const std::unique_ptr<engine::GameContext>& context) const override;
-
 
 	private:
 		const float radius_ = 10.0f;

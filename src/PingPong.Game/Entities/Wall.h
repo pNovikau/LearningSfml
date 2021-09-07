@@ -1,16 +1,15 @@
 #pragma once
-#include "CollidingGameObject.h"
+#include "Objects/CollidingObject.h"
 
 namespace game
 {
-	class Wall : public engine::CollidingGameObject
+	class Wall : public engine::CollidingObject
 	{
-		using CollidingGameObject::CollidingGameObject;
+		using CollidingObject::CollidingObject;
 
 	public:
 
 		void init(const std::unique_ptr<engine::GameContext>& context) override;
-		void updated(const std::unique_ptr<engine::GameContext>& context) override;
 		void collision(const std::unique_ptr<engine::CollisionContext>& context) override;
 
 		void set_size(const sf::Vector2f& size);

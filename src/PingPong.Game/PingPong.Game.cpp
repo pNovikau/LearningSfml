@@ -21,7 +21,7 @@ int main()
 		wall.set_origin(size / 2.f);
 		wall.set_position(position);
 		wall.set_size(size);
-		wall.add_tag(game::Constants::Tags::WALL);
+        wall.addTag(game::Constants::Tags::WALL);
 
 		return wall;
 	};

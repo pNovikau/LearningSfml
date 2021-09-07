@@ -9,14 +9,14 @@ namespace game
 
 		sf::RectangleShape shape({ static_cast<float>(window_size.x), 2});
 
-		shape_ = std::make_shared<sf::RectangleShape>(shape);
-		drawable_ = shape_;
-		transformable_ = shape_;
+        _shape = std::make_shared<sf::RectangleShape>(shape);
+        _drawable = _shape;
+        _transformable = _shape;
 	}
 
 	void PlayerTrigger::collision(const std::unique_ptr<engine::CollisionContext>& context)
 	{
-		if (context->game_object->get_id() != Constants::Entities::BALL_ID)
+		if (context->game_object->getId() != Constants::Entities::BALL_ID)
 			return;
 
 		if (score_manager_)

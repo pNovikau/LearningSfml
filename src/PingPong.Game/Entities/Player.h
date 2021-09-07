@@ -1,12 +1,16 @@
 #pragma once
-#include "CollidingGameObject.h"
+
+#include <DrawableObject.h>
+#include "Objects/CollidingObject.h"
 #include "GameContext.h"
 
 namespace game
 {
-	class Player : public engine::CollidingGameObject
+    class Player :
+        public engine::DrawableObject,
+        public engine::CollidingObject
 	{
-		using CollidingGameObject::CollidingGameObject;
+		using DrawableObject::DrawableObject;
 
 	public:
 

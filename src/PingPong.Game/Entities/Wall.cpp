@@ -10,17 +10,13 @@ namespace game
 		shape->setOrigin(origin_);
 		shape->setPosition(position_);
 
-		shape_ = shape;
-		drawable_ = shape;
-		transformable_ = shape;
+        _shape = shape;
+        _drawable = shape;
+        _transformable = shape;
 	}
-
-	void Wall::updated(const std::unique_ptr<engine::GameContext>& context)
-	{ }
 
 	void Wall::collision(const std::unique_ptr<engine::CollisionContext>& context)
 	{ }
-
 
 	void Wall::set_size(const sf::Vector2f& size)
 	{

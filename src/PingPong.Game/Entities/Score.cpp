@@ -17,8 +17,8 @@ namespace game
 		text->setFillColor(sf::Color::White);
 
 		text_ = text;
-		drawable_ = text;
-		transformable_ = text;
+        _drawable = text;
+        _transformable = text;
 	}
 
 	void Score::updated(const std::unique_ptr<engine::GameContext>& context)
@@ -31,7 +31,7 @@ namespace game
 		++enemy_score_;
 
 		std::cout
-			<< "[" + get_id() + "] score updated "
+			<< "[" + getId() + "] score updated "
 			<< std::to_string(player_score_) + " : " + std::to_string(enemy_score_)
 			<< "\n";
 	}
@@ -41,7 +41,7 @@ namespace game
 		++player_score_;
 
 		std::cout
-			<< "[" + get_id() + "] score updated "
+			<< "[" + getId() + "] score updated "
 			<< std::to_string(player_score_) + " : " + std::to_string(enemy_score_)
 			<< "\n";
 	}

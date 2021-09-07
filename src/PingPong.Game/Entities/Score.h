@@ -1,12 +1,13 @@
 #pragma once
+
+#include <DrawableObject.h>
 #include "GameContext.h"
-#include "GameObject.h"
 
 namespace game
 {
-	class Score : public engine::GameObject
+	class Score : public engine::DrawableObject
 	{
-		using GameObject::GameObject;
+		using DrawableObject::DrawableObject;
 
 	public:
 		void init(const std::unique_ptr<engine::GameContext>& context) override;

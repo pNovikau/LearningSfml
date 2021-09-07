@@ -13,38 +13,33 @@ namespace game
 		shape->setFillColor(sf::Color::White);
 		shape->setPosition(shape_position);
 		shape->setOrigin(10.f, 10.f);
-		
-		shape_ = shape;
-		drawable_ = shape;
-		transformable_ = shape;
+
+        _shape = shape;
+        _drawable = shape;
+        _transformable = shape;
 	}
 
 	void Ball::updated(const std::unique_ptr<engine::GameContext>& context)
 	{
-		shape_->move(velocity_ * speed_ * context->time->get_delta().asSeconds());
-	}
-
-	void Ball::draw(const std::unique_ptr<engine::GameContext>& context) const
-	{
-		context->window->draw(*shape_);
+        move(velocity_ * speed_ * context->time->get_delta().asSeconds());
 	}
 
 	void Ball::collision(const std::unique_ptr<engine::CollisionContext>& context)
 	{
-		if (context->game_object->get_tags()->contains(Constants::Tags::WALL))
+		if (context->game_object->getTags()->contains(Constants::Tags::WALL))
 		{
-			auto collisionNormal = context->game_object->get_position() - transformable_->getPosition();
+			auto collisionNormal = context->game_object->getPosition() - _transformable->getPosition();
 			auto manifold = Utility::getManifold(context->overlap, collisionNormal);
 			resolve(manifold);
 		}
 
-		std::cout << "[" + this->get_id() + "] collision with [" + context->game_object->get_id() + "] \n";
+		std::cout << "[" + CollidingObject::getId() + "] collision with [" + context->game_object->getId() + "] \n";
 	}
 
 	void Ball::resolve(const sf::Vector3f& manifold)
 	{
 		sf::Vector2f normal(manifold.x, manifold.y);
-		shape_->move(normal * manifold.z);
+		move(normal * manifold.z);
 
 		velocity_ = Utility::reflect(velocity_, normal);
 	}
