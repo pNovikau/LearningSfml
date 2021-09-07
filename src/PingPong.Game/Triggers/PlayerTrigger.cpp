@@ -16,7 +16,7 @@ namespace game
 
 	void PlayerTrigger::collision(const std::unique_ptr<engine::CollisionContext>& context)
 	{
-		if (context->game_object->getId() != Constants::Entities::BALL_ID)
+		if (context->game_object->get_id() != Constants::Entities::BALL_ID)
 			return;
 
 		if (score_manager_)

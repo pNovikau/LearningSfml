@@ -2,7 +2,7 @@
 //
 
 #include "GameManager.h"
-#include "Objects/CollidingGameObject.h"
+#include "CollidingGameObject.h"
 #include "FPS.h"
 
 namespace engine
@@ -53,7 +53,7 @@ namespace engine
 
 			for (const auto& game_obj : object_manager_->list())
 			{
-				if (game_obj->getType() == GameObjectType::colliding_game_object)
+				if (game_obj->get_type() == GameObjectType::colliding_game_object)
 					std::static_pointer_cast<CollidingGameObject>(game_obj)->inspects_collision(object_manager_->list());
 			}
 
@@ -62,7 +62,7 @@ namespace engine
 				game_obj->draw(context);
 
 #ifndef NDEBUG
-				if (game_obj->getType() == GameObjectType::colliding_game_object)
+				if (game_obj->get_type() == GameObjectType::colliding_game_object)
 					std::static_pointer_cast<CollidingGameObject>(game_obj)->draw_collision_box(context);
 #endif // !NDEBUG
 			}

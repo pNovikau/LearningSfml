@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-#include "Objects/GameObject.h"
+#include "GameObject.h"
 
 namespace engine
 {

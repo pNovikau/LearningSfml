@@ -1,7 +1,7 @@
 #pragma once
 #include <random>
 
-#include "Objects/CollidingGameObject.h"
+#include "CollidingGameObject.h"
 #include "ScoreManager.h"
 #include "Utils/VectorMath.h"
 

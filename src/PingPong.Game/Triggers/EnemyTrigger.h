@@ -1,5 +1,5 @@
 #pragma once
-#include "Objects/CollidingGameObject.h"
+#include "CollidingGameObject.h"
 #include "CollisionContext.h"
 #include "GameContext.h"
 #include "ScoreManager.h"

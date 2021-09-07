@@ -31,14 +31,14 @@ namespace game
 
 	void Ball::collision(const std::unique_ptr<engine::CollisionContext>& context)
 	{
-		if (context->game_object->getTags()->contains(Constants::Tags::WALL))
+		if (context->game_object->get_tags()->contains(Constants::Tags::WALL))
 		{
-			auto collisionNormal = context->game_object->getPosition() - transformable_->getPosition();
+			auto collisionNormal = context->game_object->get_position() - transformable_->getPosition();
 			auto manifold = Utility::getManifold(context->overlap, collisionNormal);
 			resolve(manifold);
 		}
 
-		std::cout << "[" + this->get_id() + "] collision with [" + context->game_object->getId() + "] \n";
+		std::cout << "[" + this->get_id() + "] collision with [" + context->game_object->get_id() + "] \n";
 	}
 
 	void Ball::resolve(const sf::Vector3f& manifold)
