@@ -4,6 +4,7 @@
 #include "Components/CollidingComponent.h"
 #include "Components/TransformComponent.h"
 #include "Systems/System.h"
+#include "Utils/VectorMath.h"
 
 namespace game
 {
@@ -26,10 +27,11 @@ namespace game
                     if (currentEntity->getId() == entity->getId())
                         continue;
 
-                    const auto& collidingComponent = currentEntity->addOrGetComponent<engine::CollidingComponent>();
+                    const auto& collidingComponent = entity->addOrGetComponent<engine::CollidingComponent>();
+                    const auto& transformComponent = entity->addOrGetComponent<engine::TransformComponent>();
                     sf::FloatRect overlap;
 
-                    if (currentCollidingComponent->collidingBody->intersects(*collidingComponent->collidingBody, overlap))
+                    if (currentCollidingComponent->globalBounds.intersects(collidingComponent->globalBounds, overlap))
                     {
                         if (currentEntity->getId() == game::Constants::Entities::PLAYER_ID)
                         {
@@ -37,10 +39,21 @@ namespace game
                                 continue;
 
                             //TODO: player collision
+                            auto collisionNormal = transformComponent->transformable->getPosition() - currentTransformComponent->transformable->getPosition();
+                            auto manifold = Utility::getManifold(overlap, collisionNormal);
+                            sf::Vector2f normal(manifold.x, manifold.y);
+                            currentTransformComponent->transformable->move(normal * manifold.z);
+
                         }
                         else if (currentEntity->getId() == game::Constants::Entities::BALL_ID)
                         {
                             //TODO: ball collision
+                            auto collisionNormal = transformComponent->transformable->getPosition() - currentTransformComponent->transformable->getPosition();
+                            auto manifold = Utility::getManifold(overlap, collisionNormal);
+                            sf::Vector2f normal(manifold.x, manifold.y);
+                            currentTransformComponent->transformable->move(normal * manifold.z);
+
+                            currentTransformComponent->velocity = Utility::reflect(currentTransformComponent->velocity, normal);
                         }
                     }
                 }

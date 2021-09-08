@@ -28,8 +28,9 @@ namespace engine
 
                     if (collidingComponent)
                     {
-                        collidingComponent->collidingBody->top = component->transformable->getPosition().y;
-                        collidingComponent->collidingBody->left = component->transformable->getPosition().x;
+                        auto globalBounds = component->transformable->getTransform().transformRect(collidingComponent->localBounds);
+
+                        collidingComponent->globalBounds = globalBounds;
                     }
                 }
             }

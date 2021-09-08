@@ -38,10 +38,10 @@ namespace engine
 #ifndef NDEBUG
         static void drawCollisionBox(const std::unique_ptr<GameContext>& context, const std::shared_ptr<CollidingComponent>& component)
         {
-            const auto& bounding_box = component->collidingBody;
+            const auto& bounding_box = component->globalBounds;
 
-            auto collision_box = sf::RectangleShape({ bounding_box->width, bounding_box->height });
-            collision_box.setPosition(bounding_box->left, bounding_box->top);
+            auto collision_box = sf::RectangleShape({ bounding_box.width, bounding_box.height });
+            collision_box.setPosition(bounding_box.left, bounding_box.top);
             collision_box.setOutlineColor(sf::Color::Red);
             collision_box.setFillColor(sf::Color::Transparent);
             collision_box.setOutlineThickness(1);

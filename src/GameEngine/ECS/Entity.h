@@ -4,6 +4,7 @@
 #include <memory>
 #include <bitset>
 #include <GameContext.h>
+#include <set>
 
 #include "Components/Component.h"
 #include "Helper.h"
@@ -91,8 +92,13 @@ namespace engine
 
         std::string getId() { return _id; }
 
+        void addTag(const std::string& tag) { _tags.erase(tag); }
+
+        bool containsTag(const std::string& tag) { return _tags.contains(tag); }
+
     private:
         std::string _id;
+        std::set<std::string> _tags;
         std::vector<std::shared_ptr<Component>> _components;
         std::bitset<128> _componentsMask;
 

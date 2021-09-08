@@ -14,6 +14,7 @@ namespace engine
             type = static_cast<int>(ComponentType::Collision);
         }
 
-        std::shared_ptr<sf::FloatRect> collidingBody;
+        sf::FloatRect globalBounds;
+        sf::FloatRect localBounds;
     };
 }
