@@ -1,8 +1,9 @@
 ﻿// GameManager.cpp : Source file for your target.
 //
 
+#include <Systems/DrawSystem.h>
+#include <Systems/TransformSystem.h>
 #include "GameManager.h"
-#include "CollidingGameObject.h"
 #include "FPS.h"
 
 namespace engine
@@ -12,6 +13,9 @@ namespace engine
 	{
 		window_ = std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), title_);
 		object_manager_ = std::make_shared<GameObjectManager>();
+
+        _systemManager = std::make_shared<SystemManager>();
+        _entityManager = std::make_shared<EntityManager>();
 	}
 
 	void GameManager::init() const
@@ -19,10 +23,16 @@ namespace engine
 		const auto context = std::make_unique<GameContext>();
 		context->window = window_;
 
-		for (const auto& game_obj : object_manager_->list())
-		{
-			game_obj->init(context);
-		}
+        for (const auto& entity : _entityManager->listEntities())
+        {
+            entity->init(context);
+        }
+
+        TransformSystem transformSystem(_entityManager);
+        _systemManager->registerSystem(transformSystem);
+
+        DrawSystem drawSystem(_entityManager);
+        _systemManager->registerSystem(drawSystem);
 	}
 
 	void GameManager::start() const
@@ -30,6 +40,9 @@ namespace engine
 		const auto context = std::make_unique<GameContext>();
 		context->window = window_;
 		context->time = std::make_shared<GameTime>();
+
+        auto entityManager = std::make_shared<EntityManager>();
+        DrawSystem drawSystem(entityManager);
 
 		Utility::FPS fps(context->time);
 
@@ -45,30 +58,15 @@ namespace engine
 
 			window_->clear();
 
-			context->time->update();
-
-			//TODO: optimize 3 loops below
-			for (const auto& game_obj : object_manager_->list())
-				game_obj->updated(context);
-
-			for (const auto& game_obj : object_manager_->list())
-			{
-				if (game_obj->get_type() == GameObjectType::colliding_game_object)
-					std::static_pointer_cast<CollidingGameObject>(game_obj)->inspects_collision(object_manager_->list());
-			}
-
-			for (const auto& game_obj : object_manager_->list())
-			{
-				game_obj->draw(context);
-
-#ifndef NDEBUG
-				if (game_obj->get_type() == GameObjectType::colliding_game_object)
-					std::static_pointer_cast<CollidingGameObject>(game_obj)->draw_collision_box(context);
-#endif // !NDEBUG
-			}
+            for (const auto& system : _systemManager->listSystem())
+            {
+                system->update(context);
+            }
 
 			std::uint8_t frames = fps.getFPS();
 			window_->setTitle(title_ + " FPS: " + std::to_string(frames));
+
+            context->time->update();
 
 			window_->display();
 		}

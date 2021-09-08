@@ -5,7 +5,7 @@ namespace engine
 {
 	GameObject::GameObject()
 	{
-		id_ = utils::Helper::generate_random_string();
+		id_ = Helper::generateRandomString();
 		tags_ = std::make_shared<std::set<std::string>>();
 	}
 

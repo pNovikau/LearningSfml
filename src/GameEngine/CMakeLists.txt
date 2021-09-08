@@ -13,10 +13,9 @@ add_library(game_engine STATIC
 			"GameObjectManager.cpp"
 			"GameObjectType.h"
 			"Utils/FPS.h"
-			"Utils/Helper.cpp"
-			"Utils/Helper.h"
+		"Utils/Helper.h"
 			"Utils/VectorMath.h"
-			"GameTime.h" )
+			"GameTime.h" Components/TransformComponent.h Managers/SystemManager.h Managers/EntityManager.h ECS/Entity.h Components/Component.h Components/ComponentType.h Components/DrawComponent.h Systems/DrawSystem.h Systems/System.h Systems/TransformSystem.h Components/IntputComponent.h Components/CollidingComponent.h)
 
 target_include_directories(game_engine PUBLIC 
     "${CMAKE_SOURCE_DIR}/src/GameEngine"

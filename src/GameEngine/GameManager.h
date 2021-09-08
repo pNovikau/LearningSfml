@@ -1,6 +1,8 @@
 ﻿#pragma once
 
 #include <SFML/Graphics.hpp>
+#include <Managers/SystemManager.h>
+#include "Managers/EntityManager.h"
 
 #include "GameObjectManager.h"
 
@@ -23,21 +25,33 @@ namespace engine
 		std::string& getTitle() const;
 		std::shared_ptr<GameObjectManager> get_object_manager() const;
 
+        template<class TSystem>
+        std::shared_ptr<TSystem> registerSystem() const
+        {
+            TSystem system(_entityManager);
+
+            return _systemManager->registerSystem(system);
+        }
+
+        template<class TEntity>
+        std::shared_ptr<TEntity> addEntity(std::string id) const
+        {
+            TEntity entity(id);
+            return _entityManager->addEntity(entity);
+        }
+
+        template<class TEntity>
+        std::shared_ptr<TEntity> addEntity() const
+        {
+            return _entityManager->createEntity<TEntity>();
+        }
+
 	private:
 		std::shared_ptr<sf::RenderWindow> window_;
 		std::shared_ptr<GameObjectManager> object_manager_;
 		std::string title_;
-	};
 
-	class Constants
-	{
-	public:
-		class Entities
-		{
-		public:
-			const std::string Player = "entity_player";
-			const std::string Enemy = "entity_enemy";
-		};
+        std::shared_ptr<SystemManager> _systemManager;
+        std::shared_ptr<EntityManager> _entityManager;
 	};
-
 }

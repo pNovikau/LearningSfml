@@ -20,7 +20,7 @@ add_executable (PingPong.Game
 	"Entities/Score.h" 
 	"Entities/Score.cpp" 
 	"ScoreManager.h" 
-	"ScoreManager.cpp")
+	"ScoreManager.cpp" Systems/InputSystem.h Systems/CollidingSystem.h)
 
 	target_include_directories(PingPong.Game PUBLIC 
 	"${CMAKE_SOURCE_DIR}/src/PingPong.Game"

@@ -1,5 +1,8 @@
+#include <Components/TransformComponent.h>
+#include <Components/IntputComponent.h>
+#include <Components/CollidingComponent.h>
 #include "Player.h"
-#include "Constants.h"
+#include "Components/DrawComponent.h"
 
 namespace game
 {
@@ -11,38 +14,18 @@ namespace game
 		const auto shape = std::make_shared<sf::RectangleShape>(rectangle_size);
 		shape->setFillColor(sf::Color::White);
 		shape->setPosition(window_size.x / 2.0f, 5.0f);
-		
-		shape_ = shape;
-		drawable_ = shape;
-		transformable_ = shape;
-	}
 
-	void Player::updated(const std::unique_ptr<engine::GameContext>& context)
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && can_move_left_)
-		{
-			shape_->move(-speed_, 0);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && can_move_right_)
-		{
-			shape_->move(speed_, 0);
-		}
+        auto transformComponent = this->addOrGetComponent<engine::TransformComponent>();
+        transformComponent->speed = _speed;
+        transformComponent->transformable = shape;
 
-		can_move_left_ = true;
-		can_move_right_ = true;
-	}
+        auto inputComponent = this->addOrGetComponent<engine::InputComponent>();
+        inputComponent->keysFilter = { sf::Keyboard::Key::A, sf::Keyboard::Key::D };
 
-	void Player::collision(const std::unique_ptr<engine::CollisionContext>& context)
-	{
-		const auto& game_object = context->game_object;
-		const bool is_wall = game_object->get_tags()->contains(Constants::Tags::WALL);
+        auto collidingComponent = this->addOrGetComponent<engine::CollidingComponent>();
+        collidingComponent->collidingBody = std::make_shared<sf::FloatRect>(shape->getGlobalBounds());
 
-		if (!is_wall)
-			return;
-
-		if (game_object->get_position().x == 0)
-			can_move_left_ = false;
-		else
-			can_move_right_ = false;
+        auto drawComponent = this->addOrGetComponent<engine::DrawComponent>();
+        drawComponent->drawable = shape;
 	}
 }
