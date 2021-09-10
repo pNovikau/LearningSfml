@@ -2,7 +2,8 @@
 //
 
 #include <random>
-#include <Systems/CollidingSystem.h>
+#include <Systems/PlayerSystem.h>
+#include <Systems/BallBounceSystem.h>
 
 #include "GameManager.h"
 #include "Ball.h"
@@ -25,8 +26,9 @@ int main()
     rightWall->set_position({700, 5});
     rightWall->set_size({10, 1000});
 
-    game_manager.registerSystem<game::CollidingSystem>();
+    game_manager.registerSystem<game::PlayerSystem>();
     game_manager.registerSystem<game::InputSystem>();
+    game_manager.registerSystem<game::BallBounceSystem>();
 
 	game_manager.init();
 	game_manager.start();

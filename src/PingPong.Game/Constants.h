@@ -16,6 +16,7 @@ namespace game
 		{
 		public:
 			inline static const std::string WALL = "tag_wall";
+            inline static const std::string TRIGGER = "tag_trigger";
 		};
 	};
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ECS/Entity.h>
+#include <Entity.h>
 #include <Components/TransformComponent.h>
 #include <Components/IntputComponent.h>
 #include <Components/CollidingComponent.h>
@@ -21,20 +21,20 @@ namespace game
 
             const auto shape = std::make_shared<sf::RectangleShape>(rectangle_size);
             shape->setFillColor(sf::Color::White);
-            shape->setPosition(window_size.x / 2.0f, 5.0f);
+            shape->setPosition(window_size.x / 2.f, window_size.y - 25.f);
 
-            auto transformComponent = this->addOrGetComponent<engine::TransformComponent>();
+            const auto transformComponent = this->addOrGetComponent<engine::TransformComponent>();
             transformComponent->speed = _speed;
             transformComponent->transformable = shape;
 
-            auto inputComponent = this->addOrGetComponent<engine::InputComponent>();
+            const auto inputComponent = this->addOrGetComponent<engine::InputComponent>();
             inputComponent->keysFilter = { sf::Keyboard::Key::A, sf::Keyboard::Key::D };
-
-            auto collidingComponent = this->addOrGetComponent<engine::CollidingComponent>();
+            
+            const auto collidingComponent = this->addOrGetComponent<engine::CollidingComponent>();
             collidingComponent->globalBounds = shape->getGlobalBounds();
             collidingComponent->localBounds = shape->getLocalBounds();
 
-            auto drawComponent = this->addOrGetComponent<engine::DrawComponent>();
+            const auto drawComponent = this->addOrGetComponent<engine::DrawComponent>();
             drawComponent->drawable = shape;
         }
 

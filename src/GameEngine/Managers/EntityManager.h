@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ECS/Entity.h"
+#include "Entity.h"
 
 namespace engine
 {
@@ -38,12 +38,12 @@ namespace engine
         }
 
         template<class TEntity>
-        std::shared_ptr<TEntity> getEntity(std::string& id)
+        std::shared_ptr<TEntity> getEntity(const std::string& id)
         {
             for (const auto &entity : _entities)
             {
                 if (entity->getId() == id)
-                    return entity;
+                    return std::static_pointer_cast<TEntity>(entity);
             }
         }
 

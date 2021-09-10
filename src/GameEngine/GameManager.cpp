@@ -3,6 +3,7 @@
 
 #include <Systems/DrawSystem.h>
 #include <Systems/TransformSystem.h>
+#include <Systems/CollidingSystem.h>
 #include "GameManager.h"
 #include "FPS.h"
 
@@ -16,6 +17,7 @@ namespace engine
 
         _systemManager = std::make_shared<SystemManager>();
         _entityManager = std::make_shared<EntityManager>();
+		_eventManager = std::make_shared<EventManager>();
 	}
 
 	void GameManager::init() const
@@ -28,11 +30,19 @@ namespace engine
             entity->init(context);
         }
 
-        TransformSystem transformSystem(_entityManager);
+        CollidingSystem collidingSystem(_entityManager, _eventManager);
+        _systemManager->registerSystem(collidingSystem);
+
+        TransformSystem transformSystem(_entityManager, _eventManager);
         _systemManager->registerSystem(transformSystem);
 
-        DrawSystem drawSystem(_entityManager);
+        DrawSystem drawSystem(_entityManager, _eventManager);
         _systemManager->registerSystem(drawSystem);
+
+		for (const auto& system : _systemManager->listSystem())
+		{
+			system->init(context);
+		}
 	}
 
 	void GameManager::start() const
@@ -40,9 +50,6 @@ namespace engine
 		const auto context = std::make_unique<GameContext>();
 		context->window = window_;
 		context->time = std::make_shared<GameTime>();
-
-        auto entityManager = std::make_shared<EntityManager>();
-        DrawSystem drawSystem(entityManager);
 
 		Utility::FPS fps(context->time);
 
@@ -65,6 +72,8 @@ namespace engine
 
 			std::uint8_t frames = fps.getFPS();
 			window_->setTitle(title_ + " FPS: " + std::to_string(frames));
+
+			_eventManager->notifyAll();
 
             context->time->update();
 

@@ -1,6 +1,6 @@
 #pragma once
 #include <random>
-#include <ECS/Entity.h>
+#include <Entity.h>
 
 #include "CollidingGameObject.h"
 #include "ScoreManager.h"

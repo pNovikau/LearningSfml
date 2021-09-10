@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <Managers/SystemManager.h>
 #include "Managers/EntityManager.h"
+#include "Events/Event.h"
 
 #include "GameObjectManager.h"
 
@@ -28,7 +29,7 @@ namespace engine
         template<class TSystem>
         std::shared_ptr<TSystem> registerSystem() const
         {
-            TSystem system(_entityManager);
+            TSystem system(_entityManager, _eventManager);
 
             return _systemManager->registerSystem(system);
         }
@@ -53,5 +54,6 @@ namespace engine
 
         std::shared_ptr<SystemManager> _systemManager;
         std::shared_ptr<EntityManager> _entityManager;
+        std::shared_ptr<EventManager> _eventManager;
 	};
 }

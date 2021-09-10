@@ -10,7 +10,8 @@ namespace engine
     class TransformSystem : public System
     {
     public:
-        TransformSystem(std::shared_ptr<EntityManager> entityManager) : System(std::move(entityManager)) { }
+        TransformSystem(std::shared_ptr<EntityManager> entityManager, std::shared_ptr<EventManager> eventManager) : System(std::move(entityManager), std::move(eventManager))
+        {}
 
         void update(const std::unique_ptr<GameContext>& context) override
         {
