@@ -39,37 +39,7 @@ namespace engine
 
                         _eventManager->addEvent<CollisionEvent>(event);
 
-                        // Player collision
-                        /*if (currentEntity->getId() == game::Constants::Entities::PLAYER_ID)
-                        {
-                            if (targetEntity->getId() == game::Constants::Entities::BALL_ID)
-                                continue;
-
-                            auto collisionNormal = targetTransformComponent->transformable->getPosition() - currentTransformComponent->transformable->getPosition();
-                            auto manifold = Utility::getManifold(overlap, collisionNormal);
-                            sf::Vector2f normal(manifold.x, manifold.y);
-                            currentTransformComponent->transformable->move(normal * manifold.z);
-
-                            //TODO: move collision box
-                        }
-                            // Ball collision
-                        else if (currentEntity->getId() == game::Constants::Entities::BALL_ID)
-                        {
-                            if (targetEntity->hasTag(game::Constants::Tags::TRIGGER))
-                            {
-
-                            }
-
-
-                            auto collisionNormal = targetTransformComponent->transformable->getPosition() - currentTransformComponent->transformable->getPosition();
-                            auto manifold = Utility::getManifold(overlap, collisionNormal);
-                            sf::Vector2f normal(manifold.x, manifold.y);
-                            currentTransformComponent->transformable->move(normal * manifold.z);
-
-                            //TODO: move collision box
-
-                            currentTransformComponent->velocity = Utility::reflect(currentTransformComponent->velocity, normal);
-                        }*/
+                        //TODO: add collision logic
                     }
                 }
             }

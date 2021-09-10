@@ -10,19 +10,15 @@ namespace engine
     template <class TEventType>
     struct CallbackWrapper
     {
-        explicit CallbackWrapper(std::function<void(std::unique_ptr<TEventType>)> callable) : _callable(callable) {}
+        explicit CallbackWrapper(std::function<void(const TEventType&)> callable) : _callable(callable) {}
 
-        void operator() (std::unique_ptr<BaseEvent> event)
+        void operator() (const BaseEvent& event)
         {
-            BaseEvent* eventPtr = event.release();
-            auto* tEventTypePtr = static_cast<TEventType*>(eventPtr);
-            std::unique_ptr<TEventType> newEvent(tEventTypePtr);
-
-            _callable(std::move(newEvent));
+            _callable(static_cast<const TEventType&>(event));
         }
 
     private:
-        std::function<void(std::unique_ptr<TEventType>)> _callable;
+        std::function<void(const TEventType&)> _callable;
     };
 
     class EventQueue
@@ -49,18 +45,18 @@ namespace engine
         }
 
         template<class TEventType>
-        void subscribe(std::function<void(std::unique_ptr<TEventType>)> callback)
+        void subscribe(std::function<void(const TEventType&)> callback)
         {
             _subscribers.push_back(CallbackWrapper<TEventType>(callback));
         }
 
-        std::vector<std::function<void(std::unique_ptr<BaseEvent> event)>> listSubscribers() const
+        std::vector<std::function<void(const BaseEvent&)>> listSubscribers() const
         {
             return _subscribers;
         }
 
     private:
         std::vector<std::unique_ptr<BaseEvent>> _events;
-        std::vector<std::function<void(std::unique_ptr<BaseEvent>)>> _subscribers;
+        std::vector<std::function<void(const BaseEvent&)>> _subscribers;
     };
 }

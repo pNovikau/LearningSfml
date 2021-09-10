@@ -8,7 +8,7 @@ namespace engine
     {
     public:
         template<class TEventType>
-        void subscribe(const std::function<void(std::unique_ptr<TEventType>)> func)
+        void subscribe(const std::function<void(const TEventType&)> func)
         {
             const size_t type = Event<TEventType>::type();
 
@@ -41,7 +41,7 @@ namespace engine
 
                     for (const auto& callback : queue.listSubscribers())
                     {
-                        callback(std::move(event));
+                        callback(*event);
                     }
                 }
             }
