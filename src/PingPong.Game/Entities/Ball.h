@@ -22,16 +22,16 @@ namespace game
         {
             const sf::Vector2u window_size = context->window->getSize();
 
-            const sf::Vector2f shape_position(window_size.x / 2.0f, window_size.y / 2.0f);
-            const auto shape = std::make_shared<sf::CircleShape>(radius_);
+            defaultPosition = {window_size.x / 2.0f, window_size.y / 2.0f};
+            const auto shape = std::make_shared<sf::CircleShape>(_radius);
             shape->setFillColor(sf::Color::White);
-            shape->setPosition(shape_position);
+            shape->setPosition(defaultPosition);
             shape->setOrigin(10.f, 10.f);
 
             const auto& transformComponent = this->addOrGetComponent<engine::TransformComponent>();
             transformComponent->transformable = shape;
-            transformComponent->velocity = Utility::normalise({ -0.5f, 0.1f });
-            transformComponent->speed = speed_;
+            transformComponent->velocity = Utility::normalise({ 0.f, -1.f });
+            transformComponent->speed = _speed;
 
             const auto& collidingComponent = this->addOrGetComponent<engine::CollidingComponent>();
             collidingComponent->globalBounds = shape->getGlobalBounds();
@@ -41,9 +41,10 @@ namespace game
             drawComponent->drawable = shape;
         }
 
+        sf::Vector2f defaultPosition;
 
 	private:
-		const float radius_ = 10.0f;
-		const float speed_ = 300.f;
+		const float _radius = 10.0f;
+		const float _speed = 300.f;
 	};
 }

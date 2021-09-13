@@ -18,5 +18,11 @@ namespace game
 			inline static const std::string WALL = "tag_wall";
             inline static const std::string TRIGGER = "tag_trigger";
 		};
+
+        class Components
+        {
+        public:
+            inline static const int TRIGGER = (1u << 5);
+        };
 	};
 }

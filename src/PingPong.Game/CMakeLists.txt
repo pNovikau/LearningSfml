@@ -21,7 +21,7 @@ add_executable (PingPong.Game
 	"Systems/InputSystem.h" 
 	"Systems/PlayerSystem.h"
 	"Systems/TriggerSystem.h"
-	"Components/TriggerComponent.h" "Systems/BallBounceSystem.h")
+	"Components/TriggerComponent.h" "Systems/BallBounceSystem.h" Events/TriggerEvent.h Systems/GameResetSystem.h Entities/Trigger.h)
 
 	target_include_directories(PingPong.Game PUBLIC 
 	"${CMAKE_SOURCE_DIR}/src/PingPong.Game"
