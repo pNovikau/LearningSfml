@@ -7,10 +7,10 @@ cmake_minimum_required (VERSION 3.8)
 add_executable (PingPong.Game 
 	"PingPong.Game.cpp" 
 	"Entities/Player.h"
-        "Entities/Ball.h"
-		"Constants.h"
+	"Entities/Ball.h"
+	"Constants.h"
 	"Entities/Wall.h"
-        "Triggers/PlayerTrigger.cpp"
+	"Triggers/PlayerTrigger.cpp"
 	"Triggers/PlayerTrigger.h" 
 	"Triggers/EnemyTrigger.h" 
 	"Triggers/EnemyTrigger.cpp" 
@@ -21,7 +21,11 @@ add_executable (PingPong.Game
 	"Systems/InputSystem.h" 
 	"Systems/PlayerSystem.h"
 	"Systems/TriggerSystem.h"
-	"Components/TriggerComponent.h" "Systems/BallBounceSystem.h" Events/TriggerEvent.h Systems/GameResetSystem.h Entities/Trigger.h)
+	"Components/TriggerComponent.h"
+	"Systems/BallBounceSystem.h"
+	"Events/TriggerEvent.h"
+	"Systems/GameResetSystem.h"
+	"Entities/Trigger.h")
 
 	target_include_directories(PingPong.Game PUBLIC 
 	"${CMAKE_SOURCE_DIR}/src/PingPong.Game"

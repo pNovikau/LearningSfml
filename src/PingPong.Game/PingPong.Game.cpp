@@ -7,7 +7,6 @@
 #include <Systems/GameResetSystem.h>
 
 #include "GameManager.h"
-#include "Ball.h"
 #include "Player.h"
 #include "Wall.h"
 #include "Trigger.h"

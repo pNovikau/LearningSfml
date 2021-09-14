@@ -1,11 +1,13 @@
 #pragma once
 
+#include <string>
+
 namespace game
 {
 	class Constants
 	{
 	public:
-		class Entities
+		struct Entities
 		{
 		public:
 			inline static const std::string PLAYER_ID = "game_object_player";
