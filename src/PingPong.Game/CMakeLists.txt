@@ -5,27 +5,19 @@ cmake_minimum_required (VERSION 3.8)
 
 # Add source to this project's executable.
 add_executable (PingPong.Game 
-	"PingPong.Game.cpp" 
+	"PingPong.Game.cpp"
+	"Constants.h"
 	"Entities/Player.h"
 	"Entities/Ball.h"
-	"Constants.h"
 	"Entities/Wall.h"
-	"Triggers/PlayerTrigger.cpp"
-	"Triggers/PlayerTrigger.h" 
-	"Triggers/EnemyTrigger.h" 
-	"Triggers/EnemyTrigger.cpp" 
-	"Entities/Score.h" 
-	"Entities/Score.cpp" 
-	"ScoreManager.h" 
-	"ScoreManager.cpp"
+	"Entities/Trigger.h"
 	"Systems/InputSystem.h" 
 	"Systems/PlayerSystem.h"
 	"Systems/TriggerSystem.h"
-	"Components/TriggerComponent.h"
 	"Systems/BallBounceSystem.h"
-	"Events/TriggerEvent.h"
 	"Systems/GameResetSystem.h"
-	"Entities/Trigger.h")
+	"Components/TriggerComponent.h"
+	"Events/TriggerEvent.h")
 
 	target_include_directories(PingPong.Game PUBLIC 
 	"${CMAKE_SOURCE_DIR}/src/PingPong.Game"

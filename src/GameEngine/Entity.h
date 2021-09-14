@@ -1,6 +1,6 @@
 #pragma once
 
-#if !NDEBUG
+#ifndef NDEBUG
 #include "iostream"
 #endif
 
@@ -12,6 +12,7 @@
 
 #include "Components/Component.h"
 #include "Helper.h"
+#include "Debug.h"
 
 namespace engine
 {
@@ -99,8 +100,8 @@ namespace engine
             componentPtr.reset(new TComponent());
             _components[index] = componentPtr;
 
-#if !NDEBUG
-            std::cout << "[" + getId() + "] component added. (component type: " + std::to_string(componentType) + ")" << std::endl;
+#ifndef NDEBUG
+            std::cout << "[" << getId() << "] component added. (component type: " << typeName<TComponent>() << ")" << std::endl;
 #endif
         }
 

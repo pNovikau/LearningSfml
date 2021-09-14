@@ -1,9 +1,11 @@
 #pragma once
 
-#include "Component.h"
-#include <SFML/System/Vector2.hpp>
 #include <memory>
+
+#include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Transformable.hpp>
+#include "Component.h"
+
 
 namespace engine
 {

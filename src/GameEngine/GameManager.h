@@ -3,9 +3,6 @@
 #include <SFML/Graphics.hpp>
 #include <Managers/SystemManager.h>
 #include "Managers/EntityManager.h"
-#include "Events/Event.h"
-
-#include "GameObjectManager.h"
 
 namespace engine
 {
@@ -24,7 +21,6 @@ namespace engine
 		void init() const;
 		void start() const;
 		std::string& getTitle() const;
-		std::shared_ptr<GameObjectManager> get_object_manager() const;
 
         template<class TSystem>
         std::shared_ptr<TSystem> registerSystem() const
@@ -48,9 +44,8 @@ namespace engine
         }
 
 	private:
-		std::shared_ptr<sf::RenderWindow> window_;
-		std::shared_ptr<GameObjectManager> object_manager_;
-		std::string title_;
+		std::shared_ptr<sf::RenderWindow> _window;
+		std::string _title;
 
         std::shared_ptr<SystemManager> _systemManager;
         std::shared_ptr<EntityManager> _entityManager;

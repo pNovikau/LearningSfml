@@ -3,7 +3,6 @@
 #include "Managers/EntityManager.h"
 #include "Managers/EventManager.h"
 #include "GameContext.h"
-#include "Events/Event.h"
 
 namespace engine
 {

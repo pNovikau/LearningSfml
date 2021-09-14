@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SFML/Graphics/Rect.hpp>
-#include "memory"
 #include "Component.h"
 
 namespace engine

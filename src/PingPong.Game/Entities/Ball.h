@@ -1,9 +1,6 @@
 #pragma once
-#include <random>
 #include <Entity.h>
 
-#include "CollidingGameObject.h"
-#include "ScoreManager.h"
 #include "Utils/VectorMath.h"
 
 #include <Components/TransformComponent.h>

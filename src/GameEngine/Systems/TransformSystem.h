@@ -23,7 +23,7 @@ namespace engine
 
                 if (component->velocity.x != 0 || component->velocity.y != 0)
                 {
-                    component->transformable->move(component->velocity * component->speed * context->time->get_delta().asSeconds());
+                    component->transformable->move(component->velocity * component->speed * context->time->getDelta().asSeconds());
 
                     const auto& collidingComponent = entity->tryGetComponent<CollidingComponent>();
 

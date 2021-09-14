@@ -10,10 +10,9 @@
 namespace engine
 {
 	GameManager::GameManager(const unsigned int width, const unsigned int height, const std::string& title)
-		: title_(title)
+		: _title(title)
 	{
-		window_ = std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), title_);
-		object_manager_ = std::make_shared<GameObjectManager>();
+		_window = std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), _title);
 
         _systemManager = std::make_shared<SystemManager>();
         _entityManager = std::make_shared<EntityManager>();
@@ -23,7 +22,7 @@ namespace engine
 	void GameManager::init() const
 	{
 		const auto context = std::make_unique<GameContext>();
-		context->window = window_;
+		context->window = _window;
 
         for (const auto& entity : _entityManager->listEntities())
         {
@@ -48,22 +47,22 @@ namespace engine
 	void GameManager::start() const
 	{
 		const auto context = std::make_unique<GameContext>();
-		context->window = window_;
+		context->window = _window;
 		context->time = std::make_shared<GameTime>();
 
 		Utility::FPS fps(context->time);
 
-		while (window_->isOpen())
+		while (_window->isOpen())
 		{
 			sf::Event event{};
 
-			while (window_->pollEvent(event))
+			while (_window->pollEvent(event))
 			{
 				if (event.type == sf::Event::Closed)
-					window_->close();
+					_window->close();
 			}
 
-			window_->clear();
+			_window->clear();
 
             for (const auto& system : _systemManager->listSystem())
             {
@@ -71,19 +70,14 @@ namespace engine
             }
 
 			std::uint8_t frames = fps.getFPS();
-			window_->setTitle(title_ + " FPS: " + std::to_string(frames));
+			_window->setTitle(_title + " FPS: " + std::to_string(frames));
 
 			_eventManager->notifyAll();
 
             context->time->update();
 
-			window_->display();
+			_window->display();
 		}
-	}
-
-	std::shared_ptr<GameObjectManager> GameManager::get_object_manager() const
-	{
-		return object_manager_;
 	}
 
 }

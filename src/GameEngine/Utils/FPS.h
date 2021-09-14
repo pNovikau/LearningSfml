@@ -1,6 +1,5 @@
 #pragma once
 
-#include <cstdlib>
 #include "GameTime.h"
 
 #include <SFML/System/Clock.hpp>
@@ -21,7 +20,7 @@ namespace Utility
         {
             if (_clock.getElapsedTime().asSeconds() >= 1.0f)
             {
-                auto total_frames = _time->get_total_frames();
+                auto total_frames = _time->getTotalFrames();
                 
                 _fps = _last_total_frames - total_frames;
                 _last_total_frames = total_frames;
