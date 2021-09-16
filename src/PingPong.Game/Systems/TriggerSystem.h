@@ -12,8 +12,6 @@ namespace game
     class TriggerSystem : public engine::System
     {
     public:
-        explicit TriggerSystem(std::shared_ptr<engine::EntityManager> entityManager, std::shared_ptr<engine::EventManager> eventManager) : System(std::move(entityManager), std::move(eventManager)) {}
-
         void update(const std::unique_ptr<engine::GameContext> &context) override
         {
             const auto& entities = _entityManager->listEntitiesByComponents<engine::CollidingComponent, engine::TransformComponent>();

@@ -11,9 +11,6 @@ namespace engine
     class CollidingSystem : public System
     {
     public:
-        explicit CollidingSystem(std::shared_ptr<EntityManager> entityManager, std::shared_ptr<EventManager> eventManager) : System(std::move(entityManager), std::move(eventManager))
-        {}
-
         void update(const std::unique_ptr<GameContext> &context) override
         {
             const auto& entities = _entityManager->listEntitiesByComponents<CollidingComponent, TransformComponent>();

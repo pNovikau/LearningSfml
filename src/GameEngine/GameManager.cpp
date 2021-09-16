@@ -30,14 +30,9 @@ namespace engine
             entity->init(context);
         }
 
-        CollidingSystem collidingSystem(_entityManager, _eventManager);
-        _systemManager->registerSystem(collidingSystem);
-
-        TransformSystem transformSystem(_entityManager, _eventManager);
-        _systemManager->registerSystem(transformSystem);
-
-        DrawSystem drawSystem(_entityManager, _eventManager);
-        _systemManager->registerSystem(drawSystem);
+        registerSystem<CollidingSystem>();
+        registerSystem<TransformSystem>();
+        registerSystem<DrawSystem>();
 
 		for (const auto& system : _systemManager->listSystem())
 		{

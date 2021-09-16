@@ -26,7 +26,11 @@ namespace engine
         template<class TSystem>
         std::shared_ptr<TSystem> registerSystem() const
         {
-            TSystem system(_entityManager, _eventManager);
+            TSystem system;
+
+            system.setResourceManager(_resourceManager);
+            system.setEntityManager(_entityManager);
+            system.setEventManager(_eventManager);
 
             return _systemManager->registerSystem(system);
         }

@@ -12,9 +12,6 @@ namespace engine
     class DrawSystem : public System
     {
     public:
-        DrawSystem(std::shared_ptr<EntityManager> entityManager, std::shared_ptr<EventManager> eventManager) : System(std::move(entityManager), std::move(eventManager))
-        { }
-
         void update(const std::unique_ptr<GameContext>& context) override
         {
             _drawableEntities = _entityManager->listEntitiesByComponent<DrawComponent>();

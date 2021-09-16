@@ -12,9 +12,6 @@ namespace game
 		public engine::IEventHandler<engine::CollisionEvent>
 	{
 	public:
-		explicit BallBounceSystem(std::shared_ptr<engine::EntityManager> entityManager, std::shared_ptr<engine::EventManager> eventManager) : System(std::move(entityManager), std::move(eventManager))
-		{}
-
 		void init(const std::unique_ptr<engine::GameContext>& context) override
 		{
 			subscribe<engine::CollisionEvent>();
