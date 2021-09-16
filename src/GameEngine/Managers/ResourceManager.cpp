@@ -61,7 +61,9 @@ namespace engine
         if (!font.loadFromFile(file.path().string()))
         {} //TODO: handle error
 
-        auto normalizedKey = Helper::toUpperCopy(file.path().filename().string());
+        auto fullName = file.path().filename().string();
+        auto lastIndex = fullName.find_last_of('.');
+        auto normalizedKey = Helper::toUpperCopy(fullName.substr(0, lastIndex));
         _fonts.emplace(normalizedKey, std::make_shared<sf::Font>(font));
     }
 
@@ -72,7 +74,9 @@ namespace engine
         if (!texture.loadFromFile(file.path().string()))
         {} //TODO: handle error
 
-        auto normalizedKey = Helper::toUpperCopy(file.path().filename().string());
+        auto fullName = file.path().filename().string();
+        auto lastIndex = fullName.find_last_of('.');
+        auto normalizedKey = Helper::toUpperCopy(fullName.substr(0, lastIndex));
         _textures.emplace(normalizedKey, std::make_shared<sf::Texture>(texture));
     }
 

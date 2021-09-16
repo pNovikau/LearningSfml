@@ -2,6 +2,7 @@
 //
 
 #include <Systems/DrawSystem.h>
+#include <Systems/AnimationSystem.h>
 #include <Systems/TransformSystem.h>
 #include <Systems/CollidingSystem.h>
 #include "GameManager.h"
@@ -24,6 +25,7 @@ namespace engine
 	{
 		const auto context = std::make_unique<GameContext>();
 		context->window = _window;
+        context->resourceManager = _resourceManager;
 
         for (const auto& entity : _entityManager->listEntities())
         {
@@ -32,6 +34,7 @@ namespace engine
 
         registerSystem<CollidingSystem>();
         registerSystem<TransformSystem>();
+        registerSystem<AnimationSystem>();
         registerSystem<DrawSystem>();
 
 		for (const auto& system : _systemManager->listSystem())
@@ -76,4 +79,8 @@ namespace engine
 		}
 	}
 
+    void GameManager::loadResources(const std::string &path)
+    {
+        _resourceManager->loadResources(path);
+    }
 }

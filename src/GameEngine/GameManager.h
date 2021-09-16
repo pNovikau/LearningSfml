@@ -18,9 +18,9 @@ namespace engine
 
 		GameManager(unsigned int width, unsigned int height, const std::string& title);
 
-
 		void init() const;
 		void start() const;
+        void loadResources(const std::string& path);
 		std::string& getTitle() const;
 
         template<class TSystem>

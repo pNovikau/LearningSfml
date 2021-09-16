@@ -54,7 +54,7 @@ namespace engine
         }
 
         template<class TComponent>
-        std::shared_ptr<TComponent> tryGetComponent() const
+        std::shared_ptr<TComponent> tryGetComponent()
         {
             return std::static_pointer_cast<TComponent>(_components[getIndex<TComponent>()]);
         }
