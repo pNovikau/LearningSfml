@@ -22,14 +22,14 @@ namespace game
             shape->setOrigin(origin_);
             shape->setPosition(position_);
 
-            const auto& transformComponent = this->addOrGetComponent<engine::TransformComponent>();
+            const auto& transformComponent = this->addComponent<engine::TransformComponent>();
             transformComponent->transformable = shape;
 
-            const auto& collidingComponent = this->addOrGetComponent<engine::CollidingComponent>();
+            const auto& collidingComponent = this->addComponent<engine::CollidingComponent>();
             collidingComponent->globalBounds = shape->getGlobalBounds();
             collidingComponent->localBounds = shape->getLocalBounds();
 
-            const auto& drawComponent = this->addOrGetComponent<engine::DrawComponent>();
+            const auto& drawComponent = this->addComponent<engine::DrawComponent>();
             drawComponent->drawable = shape;
 
             this->addTag(Constants::Tags::WALL);

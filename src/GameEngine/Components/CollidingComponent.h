@@ -5,13 +5,9 @@
 
 namespace engine
 {
-    class CollidingComponent : public Component
+    class CollidingComponent : public Component<CollidingComponent>
     {
     public:
-        CollidingComponent()
-        {
-            type = static_cast<int>(ComponentType::Collision);
-        }
 
         sf::FloatRect globalBounds;
         sf::FloatRect localBounds;

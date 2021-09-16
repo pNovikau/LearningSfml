@@ -29,7 +29,7 @@ namespace game
                 return;
 
             const auto& ballEntity = _entityManager->getEntity<Ball>(Constants::Entities::BALL_ID);
-            const auto& ballTransformComponent = ballEntity->addOrGetComponent<engine::TransformComponent>();
+            const auto& ballTransformComponent = ballEntity->tryGetComponent<engine::TransformComponent>();
 
             ballTransformComponent->transformable->setPosition(ballEntity->defaultPosition);
             ballTransformComponent->velocity = Utility::normalise({ -0.5f, 0.1f });

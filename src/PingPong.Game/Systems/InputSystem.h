@@ -30,9 +30,9 @@ namespace game
 
         static void handleEntity(const std::shared_ptr<engine::Entity>& entity)
         {
-            for (const auto& currentKey : entity->addOrGetComponent<engine::InputComponent>()->keysFilter)
+            for (const auto& currentKey : entity->tryGetComponent<engine::InputComponent>()->keysFilter)
             {
-	            const auto transformComponent = entity->addOrGetComponent<engine::TransformComponent>();
+	            const auto transformComponent = entity->tryGetComponent<engine::TransformComponent>();
 
                 if (sf::Keyboard::isKeyPressed(currentKey) && currentKey == sf::Keyboard::A)
                 {

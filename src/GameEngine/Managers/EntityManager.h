@@ -45,6 +45,8 @@ namespace engine
                 if (entity->getId() == id)
                     return std::static_pointer_cast<TEntity>(entity);
             }
+
+            return nullptr;
         }
 
         template<class TComponent>

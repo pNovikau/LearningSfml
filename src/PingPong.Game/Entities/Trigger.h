@@ -22,10 +22,10 @@ namespace game
             shape->setOrigin(_origin);
             shape->setPosition(_position);
 
-            const auto& transformComponent = this->addOrGetComponent<engine::TransformComponent>();
+            const auto& transformComponent = this->addComponent<engine::TransformComponent>();
             transformComponent->transformable = shape;
 
-            const auto& triggerComponent = this->addOrGetComponent<TriggerComponent>();
+            const auto& triggerComponent = this->addComponent<TriggerComponent>();
             triggerComponent->body = shape->getGlobalBounds();
         }
 

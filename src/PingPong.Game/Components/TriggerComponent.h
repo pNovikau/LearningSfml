@@ -7,13 +7,9 @@
 
 namespace game
 {
-    class TriggerComponent : public engine::Component
+    class TriggerComponent : public engine::Component<TriggerComponent>
     {
     public:
-        TriggerComponent()
-        {
-            type = Constants::Components::TRIGGER;
-        }
 
         sf::FloatRect body;
     };

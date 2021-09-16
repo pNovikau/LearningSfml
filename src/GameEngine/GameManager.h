@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <Managers/SystemManager.h>
 #include "Managers/EntityManager.h"
+#include "Managers/ResourceManager.h"
 
 namespace engine
 {
@@ -47,6 +48,7 @@ namespace engine
 		std::shared_ptr<sf::RenderWindow> _window;
 		std::string _title;
 
+        std::shared_ptr<ResourceManager> _resourceManager;
         std::shared_ptr<SystemManager> _systemManager;
         std::shared_ptr<EntityManager> _entityManager;
         std::shared_ptr<EventManager> _eventManager;

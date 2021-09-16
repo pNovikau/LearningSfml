@@ -23,18 +23,18 @@ namespace game
             shape->setFillColor(sf::Color::White);
             shape->setPosition(window_size.x / 2.f, window_size.y - 25.f);
 
-            const auto transformComponent = this->addOrGetComponent<engine::TransformComponent>();
+            const auto transformComponent = this->addComponent<engine::TransformComponent>();
             transformComponent->speed = _speed;
             transformComponent->transformable = shape;
 
-            const auto inputComponent = this->addOrGetComponent<engine::InputComponent>();
+            const auto inputComponent = this->addComponent<engine::InputComponent>();
             inputComponent->keysFilter = { sf::Keyboard::Key::A, sf::Keyboard::Key::D };
             
-            const auto collidingComponent = this->addOrGetComponent<engine::CollidingComponent>();
+            const auto collidingComponent = this->addComponent<engine::CollidingComponent>();
             collidingComponent->globalBounds = shape->getGlobalBounds();
             collidingComponent->localBounds = shape->getLocalBounds();
 
-            const auto drawComponent = this->addOrGetComponent<engine::DrawComponent>();
+            const auto drawComponent = this->addComponent<engine::DrawComponent>();
             drawComponent->drawable = shape;
         }
 

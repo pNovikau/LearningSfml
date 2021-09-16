@@ -19,7 +19,7 @@ namespace engine
 
             for (const auto& entity : _transformableEntities)
             {
-                const auto component = entity->addOrGetComponent<TransformComponent>();
+                const auto component = entity->tryGetComponent<TransformComponent>();
 
                 if (component->velocity.x != 0 || component->velocity.y != 0)
                 {

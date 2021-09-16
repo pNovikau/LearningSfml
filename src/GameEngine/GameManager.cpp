@@ -14,6 +14,7 @@ namespace engine
 	{
 		_window = std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), _title);
 
+        _resourceManager = std::make_shared<ResourceManager>();
         _systemManager = std::make_shared<SystemManager>();
         _entityManager = std::make_shared<EntityManager>();
 		_eventManager = std::make_shared<EventManager>();

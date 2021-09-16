@@ -20,14 +20,14 @@ namespace engine
 
             for (const auto& currentEntity : entities)
             {
-                const auto& currentCollidingComponent = currentEntity->addOrGetComponent<CollidingComponent>();
+                const auto& currentCollidingComponent = currentEntity->tryGetComponent<CollidingComponent>();
 
                 for (const auto& targetEntity : entities)
                 {
                     if (currentEntity->getId() == targetEntity->getId())
                         continue;
 
-                    const auto& targetCollidingComponent = targetEntity->addOrGetComponent<CollidingComponent>();
+                    const auto& targetCollidingComponent = targetEntity->tryGetComponent<CollidingComponent>();
                     sf::FloatRect overlap;
 
                     if (currentCollidingComponent->globalBounds.intersects(targetCollidingComponent->globalBounds, overlap))

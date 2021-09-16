@@ -21,11 +21,11 @@ namespace game
 
             for (const auto& triggerEntity : triggers)
             {
-                const auto& triggerComponent = triggerEntity->addOrGetComponent<TriggerComponent>();
+                const auto& triggerComponent = triggerEntity->tryGetComponent<TriggerComponent>();
 
                 for (const auto& entity : entities)
                 {
-                    const auto& entityCollidingComponent = entity->addOrGetComponent<engine::CollidingComponent>();
+                    const auto& entityCollidingComponent = entity->tryGetComponent<engine::CollidingComponent>();
 
                     if (triggerComponent->body.intersects(entityCollidingComponent->globalBounds))
                     {

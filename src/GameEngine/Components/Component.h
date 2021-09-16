@@ -1,12 +1,27 @@
 #pragma once
 
-#include "Components/ComponentType.h"
-
 namespace engine
 {
-    class Component
+    class BaseComponent
+    {
+    protected:
+        static size_t getNextType()
+        {
+            static size_t typeCount = 0;
+
+            return typeCount++;
+        }
+    };
+
+    template<class TComponentType>
+    class Component : public BaseComponent
     {
     public:
-        int type = static_cast<int>(ComponentType::None);
+        static size_t getType()
+        {
+            static size_t type = getNextType();
+
+            return type;
+        }
     };
 }

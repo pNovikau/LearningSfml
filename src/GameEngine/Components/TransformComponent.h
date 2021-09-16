@@ -6,19 +6,14 @@
 #include <SFML/Graphics/Transformable.hpp>
 #include "Component.h"
 
-
 namespace engine
 {
-    class TransformComponent : public Component
+    class TransformComponent : public Component<TransformComponent>
     {
     public:
-        TransformComponent()
-        {
-            type = static_cast<int>(ComponentType::Transform);
-        };
 
         std::shared_ptr<sf::Transformable> transformable;
-        sf::Vector2f velocity{};
-        float speed{};
+        sf::Vector2f velocity;
+        float speed;
     };
 }

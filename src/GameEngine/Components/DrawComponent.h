@@ -5,13 +5,9 @@
 
 namespace engine
 {
-    class DrawComponent : public Component
+    class DrawComponent : public Component<DrawComponent>
     {
     public:
-        DrawComponent()
-        {
-            type = static_cast<int>(ComponentType::Draw);
-        }
 
         std::shared_ptr<sf::Drawable> drawable;
     };

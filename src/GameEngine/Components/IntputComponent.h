@@ -7,14 +7,10 @@
 
 namespace engine
 {
-    class InputComponent : public Component
+    class InputComponent : public Component<InputComponent>
     {
     public:
-        InputComponent()
-        {
-            type = static_cast<int>(ComponentType::Input);
-        }
 
-        std::vector<sf::Keyboard::Key> keysFilter{};
+        std::vector<sf::Keyboard::Key> keysFilter;
     };
 }

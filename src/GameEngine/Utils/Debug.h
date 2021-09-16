@@ -5,7 +5,7 @@ namespace engine
     template <class T>
     constexpr
         std::string_view
-        typeName()
+        type_name()
     {
         using namespace std;
 #ifdef __clang__

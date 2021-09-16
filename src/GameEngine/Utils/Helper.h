@@ -27,14 +27,12 @@ namespace engine
             return result;
         }
 
-        static unsigned int generateRandomInt()
+        static std::string toUpperCopy(const std::string& str)
         {
-            const std::uniform_int_distribution<std::mt19937::result_type> dist(0, INT32_MAX);
+            auto copy = str;
+            std::transform(copy.begin(), copy.end(), copy.begin(), ::toupper);
 
-            std::random_device device;
-            std::mt19937 rng(device());
-
-            return dist(rng);
+            return copy;
         }
 	};
 }

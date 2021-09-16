@@ -21,7 +21,7 @@ namespace engine
 
             for (const auto& entity : _drawableEntities)
             {
-                auto test = entity->addOrGetComponent<DrawComponent>();
+                auto test = entity->tryGetComponent<DrawComponent>();
                 context->window->draw(*test->drawable);
 
 #ifndef NDEBUG
