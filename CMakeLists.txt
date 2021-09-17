@@ -24,6 +24,7 @@ set(SFML_STATIC_LIBRARIES TRUE)
 
 find_package(SFML 2.5.1 COMPONENTS graphics audio REQUIRED)
 
+add_subdirectory("src/Dungeon")
 add_subdirectory("src/AnimationTest")
 add_subdirectory("src/GameEngine")
 add_subdirectory ("src/PingPong.Game")
