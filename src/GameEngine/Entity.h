@@ -46,9 +46,7 @@ namespace engine
         template<class TComponent>
         std::shared_ptr<TComponent> addComponent()
         {
-            std::shared_ptr<BaseComponent> componentPtr;
-            componentPtr.reset(new TComponent());
-            _components[getIndex<TComponent>()] = componentPtr;
+            _components[getIndex<TComponent>()] = std::make_shared<TComponent>();
 
             return std::static_pointer_cast<TComponent>(_components[getIndex<TComponent>()]);
         }

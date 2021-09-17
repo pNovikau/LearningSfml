@@ -27,7 +27,7 @@ add_library(game_engine STATIC
 			"Events/EventQueue.h"
 			"Events/IEventHander.h"
 			"Components/AnimationComponent.h"
-			"Managers/ResourceManager.h" Managers/ResourceManager.cpp ResourceType.h Systems/AnimationSystem.h)
+			"Managers/ResourceManager.h" Managers/ResourceManager.cpp ResourceType.h Systems/AnimationSystem.h Events/AnimationEndEvent.h)
 
 target_include_directories(game_engine PUBLIC 
     "${CMAKE_SOURCE_DIR}/src/GameEngine"

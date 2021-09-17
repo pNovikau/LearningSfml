@@ -1,48 +1,62 @@
 #pragma once
 
+#include "optional"
+
 #include "System.h"
-#include "Components/TransformComponent.h"
-#include "Components/IntputComponent.h"
 
 #include "Constants.h"
+#include "MoveComponent.h"
 #include "KeyPressedEvent.h"
 
 class PlayerInputSystem : public engine::System
 {
-    void update(const std::unique_ptr<engine::GameContext> &context) override
+    void update(const std::unique_ptr<engine::GameContext>& context) override
     {
         auto playerEntity = _entityManager->getEntity<engine::Entity>(Constants::Entities::PLAYER_ID);
 
-        for (const auto& currentKey : playerEntity->tryGetComponent<engine::InputComponent>()->keysFilter)
+        const auto moveComponent = playerEntity->tryGetComponent<MoveComponent>();
+
+        std::optional<KeyPressedEvent> event;
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         {
-            const auto transformComponent = playerEntity->tryGetComponent<engine::TransformComponent>();
+            if (!event.has_value())
+                event.emplace();
 
-            if (sf::Keyboard::isKeyPressed(currentKey) && currentKey == sf::Keyboard::A)
-            {
-                KeyPressedEvent event;
-                event.key = sf::Keyboard::A;
-                event.currentEntityId = Constants::Entities::PLAYER_ID;
-                _eventManager->addEvent(event);
+            event->keys.set(sf::Keyboard::A);
 
-                transformComponent->velocity.x = -1;
-                return;
-            }
+            moveComponent->direction.x = -1;
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        {
+            if (!event.has_value())
+                event.emplace();
 
-            if (sf::Keyboard::isKeyPressed(currentKey) && currentKey == sf::Keyboard::D)
-            {
-                KeyPressedEvent event;
-                event.key = sf::Keyboard::D;
-                event.currentEntityId = Constants::Entities::PLAYER_ID;
-                _eventManager->addEvent(event);
+            event->keys.set(sf::Keyboard::D);
 
-                transformComponent->velocity.x = 1;
-                return;
-            }
-
-            transformComponent->velocity.x = 0;
+            moveComponent->direction.x = 1;
         }
 
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+        {
+            if (!event.has_value())
+                event.emplace();
 
+            event->keys.set(sf::Keyboard::LShift);
+        }
+
+        if (!event.has_value() ||
+            !event->keys[sf::Keyboard::A] &&
+            !event->keys[sf::Keyboard::D])
+        {
+            moveComponent->direction.x = 0;
+        }
+
+        if (event.has_value())
+        {
+            event->currentEntityId = playerEntity->getId();
+            _eventManager->addEvent(event.value());
+        }
     }
 };
 

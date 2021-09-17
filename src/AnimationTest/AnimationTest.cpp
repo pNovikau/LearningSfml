@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "PlayerInputSystem.h"
 #include "PlayerAnimationSystem.h"
+#include "PlayerTransformSystem.h"
 
 
 int main()
@@ -14,6 +15,7 @@ int main()
     gameManager.addEntity<Player>(Constants::Entities::PLAYER_ID);
 
     gameManager.registerSystem<PlayerInputSystem>();
+    gameManager.registerSystem<PlayerTransformSystem>();
     gameManager.registerSystem<PlayerAnimationSystem>();
 
     gameManager.init();

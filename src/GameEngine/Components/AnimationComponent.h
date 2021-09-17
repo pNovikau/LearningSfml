@@ -10,6 +10,7 @@ namespace engine
 {
     struct AnimationComponent : public Component<AnimationComponent>
     {
+        bool isLooped = true;
         float timeDelay;
         float currentDelay;
         long offset;

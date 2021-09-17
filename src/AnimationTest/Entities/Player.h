@@ -6,6 +6,8 @@
 #include "TransformComponent.h"
 #include "IntputComponent.h"
 
+#include "MoveComponent.h"
+
 class Player : public engine::Entity
 {
 public:
@@ -42,5 +44,7 @@ public:
 
         auto inputComponent = addComponent<engine::InputComponent>();
         inputComponent->keysFilter = { sf::Keyboard::Key::A, sf::Keyboard::Key::D };
+
+        addComponent<MoveComponent>();
     }
 };

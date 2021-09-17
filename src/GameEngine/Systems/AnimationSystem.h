@@ -3,6 +3,7 @@
 #include "System.h"
 #include "AnimationComponent.h"
 #include "DrawComponent.h"
+#include "AnimationEndEvent.h"
 
 namespace engine
 {
@@ -17,6 +18,14 @@ namespace engine
             {
                 auto animationComponent = entity->tryGetComponent<AnimationComponent>();
                 animationComponent->currentDelay += context->time->getDelta().asSeconds();
+
+                if (!animationComponent->isLooped && animationComponent->currentFrame >= animationComponent->totalFrames)
+                {
+                    AnimationEndEvent  event;
+                    event.entityId = entity->getId();
+
+                    _eventManager->addEvent(event);
+                }
 
                 if (animationComponent->currentDelay >= animationComponent->timeDelay)
                 {
