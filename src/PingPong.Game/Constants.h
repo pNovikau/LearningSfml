@@ -1,11 +1,13 @@
 #pragma once
 
+#include <string>
+
 namespace game
 {
 	class Constants
 	{
 	public:
-		class Entities
+		struct Entities
 		{
 		public:
 			inline static const std::string PLAYER_ID = "game_object_player";
@@ -16,6 +18,7 @@ namespace game
 		{
 		public:
 			inline static const std::string WALL = "tag_wall";
+            inline static const std::string TRIGGER = "tag_trigger";
 		};
 	};
 }

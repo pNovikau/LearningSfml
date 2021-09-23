@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SFML/System/Clock.hpp>
-#include <Time.h>
 
 namespace engine
 {
@@ -12,29 +11,29 @@ namespace engine
 
         void update()
         {
-            ++total_frames_;
-            delta_time_ = delta_clock_.restart();
+            ++_totalFrames;
+            _deltaTime = _deltaClock.restart();
         }
 
-        const int get_total_frames() const
+        const int getTotalFrames() const
         {
-            return total_frames_;
+            return _totalFrames;
         }
 
-        const sf::Time get_time() const
+        const sf::Time getTime() const
         {
-            return clock_.getElapsedTime();
+            return _clock.getElapsedTime();
         }
 
-        const sf::Time get_delta() const
+        const sf::Time getDelta() const
         {
-            return delta_time_;
+            return _deltaTime;
         }
 
     private:
-        int total_frames_;
-        sf::Clock clock_;
-        sf::Clock delta_clock_;
-        sf::Time delta_time_;
+        int _totalFrames;
+        sf::Clock _clock;
+        sf::Clock _deltaClock;
+        sf::Time _deltaTime;
     };
 }

@@ -1,21 +1,43 @@
 #pragma once
-#include "CollidingGameObject.h"
+
+#include "Constants.h"
+#include <Entity.h>
+#include <Components/TransformComponent.h>
+#include <Components/CollidingComponent.h>
+#include "Components/DrawComponent.h"
 
 namespace game
 {
-	class Wall : public engine::CollidingGameObject
+	class Wall : public engine::Entity
 	{
-		using CollidingGameObject::CollidingGameObject;
+		using Entity::Entity;
 
 	public:
 
-		void init(const std::unique_ptr<engine::GameContext>& context) override;
-		void updated(const std::unique_ptr<engine::GameContext>& context) override;
-		void collision(const std::unique_ptr<engine::CollisionContext>& context) override;
+		void init(const std::unique_ptr<engine::GameContext>& context) override
+        {
+            const auto shape = std::make_shared<sf::RectangleShape>(size_);
+            shape->setFillColor(sf::Color::White);
+            shape->setSize(size_);
+            shape->setOrigin(origin_);
+            shape->setPosition(position_);
 
-		void set_size(const sf::Vector2f& size);
-		void set_position(const sf::Vector2f& position);
-		void set_origin(const sf::Vector2f& origin);
+            const auto& transformComponent = this->addComponent<engine::TransformComponent>();
+            transformComponent->transformable = shape;
+
+            const auto& collidingComponent = this->addComponent<engine::CollidingComponent>();
+            collidingComponent->globalBounds = shape->getGlobalBounds();
+            collidingComponent->localBounds = shape->getLocalBounds();
+
+            const auto& drawComponent = this->addComponent<engine::DrawComponent>();
+            drawComponent->drawable = shape;
+
+            this->addTag(Constants::Tags::WALL);
+        }
+
+		void setSize(const sf::Vector2f& size) { size_ = size; }
+		void setPosition(const sf::Vector2f& position) { position_ = position; }
+		void set_origin(const sf::Vector2f& origin) { origin_ = origin; }
 
 	private:
 		sf::Vector2f size_;

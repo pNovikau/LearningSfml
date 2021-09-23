@@ -1,8 +1,9 @@
 ﻿#pragma once
 
 #include <SFML/Graphics.hpp>
-
-#include "GameObjectManager.h"
+#include <Managers/SystemManager.h>
+#include "Managers/EntityManager.h"
+#include "Managers/ResourceManager.h"
 
 namespace engine
 {
@@ -17,27 +18,43 @@ namespace engine
 
 		GameManager(unsigned int width, unsigned int height, const std::string& title);
 
-
 		void init() const;
 		void start() const;
+        void loadResources(const std::string& path);
 		std::string& getTitle() const;
-		std::shared_ptr<GameObjectManager> get_object_manager() const;
+
+        template<class TSystem>
+        std::shared_ptr<TSystem> registerSystem() const
+        {
+            TSystem system;
+
+            system.setResourceManager(_resourceManager);
+            system.setEntityManager(_entityManager);
+            system.setEventManager(_eventManager);
+
+            return _systemManager->registerSystem(system);
+        }
+
+        template<class TEntity>
+        std::shared_ptr<TEntity> addEntity(std::string id) const
+        {
+            TEntity entity(id);
+            return _entityManager->addEntity(entity);
+        }
+
+        template<class TEntity>
+        std::shared_ptr<TEntity> addEntity() const
+        {
+            return _entityManager->createEntity<TEntity>();
+        }
 
 	private:
-		std::shared_ptr<sf::RenderWindow> window_;
-		std::shared_ptr<GameObjectManager> object_manager_;
-		std::string title_;
-	};
+		std::shared_ptr<sf::RenderWindow> _window;
+		std::string _title;
 
-	class Constants
-	{
-	public:
-		class Entities
-		{
-		public:
-			const std::string Player = "entity_player";
-			const std::string Enemy = "entity_enemy";
-		};
+        std::shared_ptr<ResourceManager> _resourceManager;
+        std::shared_ptr<SystemManager> _systemManager;
+        std::shared_ptr<EntityManager> _entityManager;
+        std::shared_ptr<EventManager> _eventManager;
 	};
-
 }

@@ -1,59 +1,45 @@
 ﻿// PingPong.Game.cpp : Defines the entry point for the application.
 //
 
-#include <random>
+#include <Systems/PlayerSystem.h>
+#include <Systems/BallBounceSystem.h>
+#include <Systems/TriggerSystem.h>
+#include <Systems/GameResetSystem.h>
 
 #include "GameManager.h"
-#include "Constants.h"
-#include "Ball.h"
 #include "Player.h"
 #include "Wall.h"
-#include "PlayerTrigger.h"
-#include "EnemyTrigger.h"
-#include "Score.h"
-#include "ScoreManager.h"
+#include "Trigger.h"
+#include "Systems/InputSystem.h"
 
 int main()
 {
-	auto create_wall = [](const sf::Vector2f position, const sf::Vector2f size)
-	{
-		game::Wall wall;
-		wall.set_origin(size / 2.f);
-		wall.set_position(position);
-		wall.set_size(size);
-		wall.add_tag(game::Constants::Tags::WALL);
-
-		return wall;
-	};
-
 	const engine::GameManager game_manager(768, 1024, "yey");
-	
-	const auto player = std::make_shared<game::Player>(game::Constants::Entities::PLAYER_ID);
-	game_manager.get_object_manager()->add(player);
 
-	const auto score = std::make_shared<game::Score>();
-	game_manager.get_object_manager()->add(score);
+    game_manager.addEntity<game::Player>(game::Constants::Entities::PLAYER_ID);
+    game_manager.addEntity<game::Ball>(game::Constants::Entities::BALL_ID);
 
-	const auto ball = std::make_shared<game::Ball>(game::Constants::Entities::BALL_ID);
-	game_manager.get_object_manager()->add(ball);
+    auto leftWall = game_manager.addEntity<game::Wall>();
+    leftWall->setPosition({68, 5});
+    leftWall->setSize({10, 1000});
 
-	//left
-	auto wall = create_wall({ 20.f, 400.f }, { 20.f, 760.f } );
-	game_manager.get_object_manager()->add(std::make_shared<game::Wall>(wall));
+    auto rightWall = game_manager.addEntity<game::Wall>();
+    rightWall->setPosition({700, 5});
+    rightWall->setSize({10, 1000});
 
-	//right
-	wall = create_wall({ 590.f, 400.f }, { 20.f, 760.f });
-	game_manager.get_object_manager()->add(std::make_shared<game::Wall>(wall));
+    auto topTrigger = game_manager.addEntity<game::Trigger>();
+    topTrigger->setPosition({69, 0});
+    topTrigger->setSize({631, 5});
 
-	const auto player_trigger = std::make_shared<game::PlayerTrigger>();
-	game_manager.get_object_manager()->add(player_trigger);
+    auto bottomTrigger = game_manager.addEntity<game::Trigger>();
+    bottomTrigger->setPosition({69, 1020});
+    bottomTrigger->setSize({631, 5});
 
-	const auto enemy_trigger = std::make_shared<game::EnemyTrigger>();
-	game_manager.get_object_manager()->add(enemy_trigger);
-
-	const auto score_manager = std::make_shared<game::ScoreManager>(score);
-	player_trigger->set_score_manager(score_manager);
-	enemy_trigger->set_score_manager(score_manager);
+    game_manager.registerSystem<game::TriggerSystem>();
+    game_manager.registerSystem<game::PlayerSystem>();
+    game_manager.registerSystem<game::InputSystem>();
+    game_manager.registerSystem<game::BallBounceSystem>();
+    game_manager.registerSystem<game::GameResetSystem>();
 
 	game_manager.init();
 	game_manager.start();

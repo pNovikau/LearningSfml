@@ -1,82 +1,86 @@
 ﻿// GameManager.cpp : Source file for your target.
 //
 
+#include <Systems/DrawSystem.h>
+#include <Systems/AnimationSystem.h>
+#include <Systems/TransformSystem.h>
+#include <Systems/CollidingSystem.h>
 #include "GameManager.h"
-#include "CollidingGameObject.h"
 #include "FPS.h"
 
 namespace engine
 {
 	GameManager::GameManager(const unsigned int width, const unsigned int height, const std::string& title)
-		: title_(title)
+		: _title(title)
 	{
-		window_ = std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), title_);
-		object_manager_ = std::make_shared<GameObjectManager>();
+		_window = std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), _title);
+
+        _resourceManager = std::make_shared<ResourceManager>();
+        _systemManager = std::make_shared<SystemManager>();
+        _entityManager = std::make_shared<EntityManager>();
+		_eventManager = std::make_shared<EventManager>();
 	}
 
 	void GameManager::init() const
 	{
 		const auto context = std::make_unique<GameContext>();
-		context->window = window_;
+		context->window = _window;
+        context->resourceManager = _resourceManager;
 
-		for (const auto& game_obj : object_manager_->list())
+        for (const auto& entity : _entityManager->listEntities())
+        {
+            entity->init(context);
+        }
+
+        registerSystem<CollidingSystem>();
+        registerSystem<TransformSystem>();
+        registerSystem<AnimationSystem>();
+        registerSystem<DrawSystem>();
+
+		for (const auto& system : _systemManager->listSystem())
 		{
-			game_obj->init(context);
+			system->init(context);
 		}
 	}
 
 	void GameManager::start() const
 	{
 		const auto context = std::make_unique<GameContext>();
-		context->window = window_;
+		context->window = _window;
 		context->time = std::make_shared<GameTime>();
 
 		Utility::FPS fps(context->time);
 
-		while (window_->isOpen())
+		while (_window->isOpen())
 		{
 			sf::Event event{};
 
-			while (window_->pollEvent(event))
+			while (_window->pollEvent(event))
 			{
 				if (event.type == sf::Event::Closed)
-					window_->close();
+					_window->close();
 			}
 
-			window_->clear();
+			_window->clear();
 
-			context->time->update();
-
-			//TODO: optimize 3 loops below
-			for (const auto& game_obj : object_manager_->list())
-				game_obj->updated(context);
-
-			for (const auto& game_obj : object_manager_->list())
-			{
-				if (game_obj->get_type() == GameObjectType::colliding_game_object)
-					std::static_pointer_cast<CollidingGameObject>(game_obj)->inspects_collision(object_manager_->list());
-			}
-
-			for (const auto& game_obj : object_manager_->list())
-			{
-				game_obj->draw(context);
-
-#ifndef NDEBUG
-				if (game_obj->get_type() == GameObjectType::colliding_game_object)
-					std::static_pointer_cast<CollidingGameObject>(game_obj)->draw_collision_box(context);
-#endif // !NDEBUG
-			}
+            for (const auto& system : _systemManager->listSystem())
+            {
+                system->update(context);
+            }
 
 			std::uint8_t frames = fps.getFPS();
-			window_->setTitle(title_ + " FPS: " + std::to_string(frames));
+			_window->setTitle(_title + " FPS: " + std::to_string(frames));
 
-			window_->display();
+			_eventManager->notifyAll();
+
+            context->time->update();
+
+			_window->display();
 		}
 	}
 
-	std::shared_ptr<GameObjectManager> GameManager::get_object_manager() const
-	{
-		return object_manager_;
-	}
-
+    void GameManager::loadResources(const std::string &path)
+    {
+        _resourceManager->loadResources(path);
+    }
 }
